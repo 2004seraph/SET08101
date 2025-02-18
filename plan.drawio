@@ -1,0 +1,70 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64; rv:135.0) Gecko/20100101 Firefox/135.0" version="26.0.14">
+  <diagram name="Page-1" id="HF4c1UTiVbdlKXjr9Abs">
+    <mxGraphModel dx="1764" dy="1250" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="JJV7NP8qMqMK8vtjLvEn-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-80" width="480" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="JJV7NP8qMqMK8vtjLvEn-3" value="Home" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="120" y="-40" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JJV7NP8qMqMK8vtjLvEn-4" value="Previous Room" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-80" y="-40" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JJV7NP8qMqMK8vtjLvEn-5" value="Next Room" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="310" y="-40" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JJV7NP8qMqMK8vtjLvEn-6" value="Hotbar? Can reset on each room" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-80" y="340" width="480" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="JJV7NP8qMqMK8vtjLvEn-7" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" parent="1" vertex="1">
+          <mxGeometry x="-30" y="80" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="JJV7NP8qMqMK8vtjLvEn-8" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" parent="1" vertex="1">
+          <mxGeometry x="320" y="260" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="JJV7NP8qMqMK8vtjLvEn-9" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" parent="1" vertex="1">
+          <mxGeometry x="240" y="200" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="JJV7NP8qMqMK8vtjLvEn-10" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e6d0de;strokeColor=#996185;gradientColor=#d5739d;" parent="1" vertex="1">
+          <mxGeometry x="-30" y="170" width="220" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="JJV7NP8qMqMK8vtjLvEn-11" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e51400;strokeColor=#B20000;fontColor=#ffffff;" parent="1" vertex="1">
+          <mxGeometry x="70" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="JJV7NP8qMqMK8vtjLvEn-13" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Carrying state between rooms&lt;/h1&gt;&lt;p&gt;Local storage: remember if a room was unlocked, redirect back if not, remember what was picked up&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-280" width="180" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Tg1wBogOaNXyl56e0BYg-1" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Ideas&lt;/h1&gt;&lt;ul&gt;&lt;li&gt;achievements&lt;/li&gt;&lt;li&gt;secret rooms&lt;/li&gt;&lt;li&gt;quest items that carry across&lt;/li&gt;&lt;li&gt;landing page&lt;/li&gt;&lt;li&gt;local leader broad&lt;/li&gt;&lt;li&gt;save files&lt;/li&gt;&lt;li&gt;&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-360" y="200" width="240" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="Tg1wBogOaNXyl56e0BYg-3" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Room puzzles&lt;/h1&gt;&lt;ul&gt;&lt;li&gt;unlock safe &amp;gt; get key&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="440" y="115" width="240" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="Tg1wBogOaNXyl56e0BYg-4" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" vertex="1" parent="1">
+          <mxGeometry x="-120" y="560" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Tg1wBogOaNXyl56e0BYg-5" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" vertex="1" parent="1">
+          <mxGeometry y="560" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Tg1wBogOaNXyl56e0BYg-6" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" vertex="1" parent="1">
+          <mxGeometry x="120" y="560" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Tg1wBogOaNXyl56e0BYg-7" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fa6800;fontColor=#000000;strokeColor=#C73500;" vertex="1" parent="1">
+          <mxGeometry x="240" y="560" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Tg1wBogOaNXyl56e0BYg-8" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="1">
+          <mxGeometry x="120" y="680" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Tg1wBogOaNXyl56e0BYg-9" value="minigames" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="1">
+          <mxGeometry y="440" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Tg1wBogOaNXyl56e0BYg-10" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" vertex="1" parent="1">
+          <mxGeometry x="-240" y="560" width="80" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
