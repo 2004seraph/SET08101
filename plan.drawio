@@ -44,13 +44,13 @@
           <mxGeometry x="70" y="200" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="JJV7NP8qMqMK8vtjLvEn-13" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Carrying state between rooms&lt;/h1&gt;&lt;p&gt;Local storage: remember if a room was unlocked, redirect back if not, remember what was picked up&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-560" y="200" width="180" height="160" as="geometry" />
+          <mxGeometry x="-630" y="180" width="180" height="160" as="geometry" />
         </mxCell>
         <mxCell id="Tg1wBogOaNXyl56e0BYg-1" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Ideas&lt;/h1&gt;&lt;ul&gt;&lt;li&gt;achievements&lt;/li&gt;&lt;li&gt;secret rooms&lt;/li&gt;&lt;li&gt;quest items that carry across&lt;/li&gt;&lt;li&gt;landing page&lt;/li&gt;&lt;li&gt;local leader broad&lt;/li&gt;&lt;li&gt;save files&lt;/li&gt;&lt;li&gt;&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="-630" y="350" width="240" height="220" as="geometry" />
         </mxCell>
         <mxCell id="Tg1wBogOaNXyl56e0BYg-3" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Room puzzles&lt;/h1&gt;&lt;ul&gt;&lt;li&gt;unlock safe &amp;gt; get key&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="-590" y="-50" width="240" height="220" as="geometry" />
+          <mxGeometry x="-630" y="70" width="190" height="100" as="geometry" />
         </mxCell>
         <mxCell id="pXol61Bcyo_BXOwHgApD-3" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="Tg1wBogOaNXyl56e0BYg-4" target="Tg1wBogOaNXyl56e0BYg-5">
           <mxGeometry relative="1" as="geometry" />
