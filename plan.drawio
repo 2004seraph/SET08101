@@ -130,6 +130,24 @@
         <mxCell id="pXol61Bcyo_BXOwHgApD-23" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Environment&lt;/h1&gt;&lt;ul&gt;&lt;li&gt;Items that can be picked up&lt;/li&gt;&lt;li&gt;Things that can be interacted with to do other stuff&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="400" y="140" width="240" height="110" as="geometry" />
         </mxCell>
+        <mxCell id="pXol61Bcyo_BXOwHgApD-24" value="...." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-320" y="-40" width="220" height="440" as="geometry" />
+        </mxCell>
+        <mxCell id="pXol61Bcyo_BXOwHgApD-26" value="Achievement 1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1ba1e2;strokeColor=#006EAF;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="-310" y="-30" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pXol61Bcyo_BXOwHgApD-27" value="Achievement 2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1ba1e2;strokeColor=#006EAF;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="-310" y="20" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pXol61Bcyo_BXOwHgApD-28" value="Achievement 3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1ba1e2;strokeColor=#006EAF;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="-310" y="70" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pXol61Bcyo_BXOwHgApD-29" value="Not Unlocked" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-310" y="120" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pXol61Bcyo_BXOwHgApD-30" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Achievements&lt;/h1&gt;&lt;ul&gt;&lt;li&gt;Fun little things for completionists to discover&lt;/li&gt;&lt;li&gt;Adds replay value&lt;/li&gt;&lt;li&gt;Persists between rooms and whole games&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-310" y="210" width="200" height="180" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
