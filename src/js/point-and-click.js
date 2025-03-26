@@ -611,10 +611,6 @@ class Inventory { // you will not be able to create NEW instances of this class 
   static #CRAFT_DATA_SELECTOR     = "[data-crafting-recipe][data-combines]";
   static #DOOR_ELEMENT_SELECTOR   = "[data-door]";
 
-  static #DO_NOTHING_LISTENER = (e) => {
-    e.preventDefault();
-  }
-
   static #OBSERVER = new MutationObserver((mutationList, observer) => {
     // maybe check the mutation list to see if it's needed?
     window.inventory.reconfigure(false);
@@ -773,7 +769,7 @@ class Inventory { // you will not be able to create NEW instances of this class 
       return;
     }
 
-    this.#addEventListener(element, "dragover", Inventory.#DO_NOTHING_LISTENER);
+    this.#addEventListener(element, "dragover", doNothingListener);
 
     // if unset, allow everything
     const isItemAllowedInSlot = (item, slot) => {
@@ -958,7 +954,7 @@ class Inventory { // you will not be able to create NEW instances of this class 
         e.dataTransfer.setData("text/plain", ingredientElements[index].dataset.gameItem);
       });
 
-      this.#addEventListener(ingredientElements[NOT(index)],  "dragover",   Inventory.#DO_NOTHING_LISTENER);
+      this.#addEventListener(ingredientElements[NOT(index)],  "dragover",   doNothingListener);
 
       this.#addEventListener(ingredientElements[NOT(index)],  "drop",       (e) => {
         e.preventDefault();
@@ -995,7 +991,7 @@ class Inventory { // you will not be able to create NEW instances of this class 
     doorElement.setAttribute("draggable",   false);
     doorElement.setAttribute("data-opened", false);
 
-    this.#addEventListener(doorElement, "dragover", Inventory.#DO_NOTHING_LISTENER);
+    this.#addEventListener(doorElement, "dragover", doNothingListener);
 
     // Key config
 
@@ -1221,6 +1217,10 @@ class Inventory { // you will not be able to create NEW instances of this class 
 
 // generic helpers
 
+function doNothingListener(e) {
+  e.preventDefault();
+}
+
 // checks if an array has duplicate elements
 function hasDuplicates(array) {
   return (new Set(array)).size !== array.length;
@@ -1276,8 +1276,8 @@ function create() {
     if (checkBoolAttr(opts.defaultStyle, true, true)) {
       Inventory.initializeDefaultStyle();
     }
-  }
-  else {
+
+  } else {
     // throw new Error("Script must be the first to load, and cannot be deferred or ran asynchronously");
     console.warn(
       "This script has been deferred or ran asynchronously, certain features will be disabled");
@@ -1316,6 +1316,7 @@ if (window.inventory) {
     // this isnt working
     console.error("Item script included more than once, ignoring...");
     return;
+
   } else {
     console.warn("Hijacking pre-existing window.inventory object!");
   }

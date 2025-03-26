@@ -1,0 +1,40 @@
+/* Meant to be included on all pages */
+
+@import url("variables.css");
+@import url("reset.css");
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--base-color);
+  color: var(--text-color);
+
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* unvisited link */
+a:link {
+  color: rgb(145, 248, 255);
+}
+a:visited {
+  color: rgb(145, 193, 255);
+}
+/* mouse over link */
+a:hover {
+  color: rgb(255, 158, 207);
+}
+a:active {
+  color: rgb(255, 158, 207);
+}
