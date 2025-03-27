@@ -2,8 +2,52 @@
 
 @import url("global.css");
 
+
+:root {
+  --view-width: 400px;
+  --view-height: 400px;
+
+  --map-width: 1200px;
+}
+
+main {
+
+  display: flex;
+
+  gap: 10px;
+
+  flex-wrap: wrap-reverse;
+
+  align-items: stretch;
+  justify-content: center;
+}
+
+#quests {
+  flex: 1;
+
+  min-width: 200px;
+  width: 300px;
+  max-width: var(--view-width);
+
+  /* min-height: 400px; */
+
+  background-color: black;
+}
+
+#playArea {
+  position: relative;
+  z-index: 100;
+}
+
+#notifications {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 #game {
-  width: 400px;
+  width: var(--view-width);
+
   overflow-x: scroll;
   overflow-y: hidden;
 
@@ -18,47 +62,56 @@
 
 #stage {
   position: relative;
+
   background-color: rgb(156, 105, 105);
-  width: 1200px;
-  height: 400px;
+
+  width: var(--map-width);
+  height: var(--view-height);
 }
 
 
 #hotbar {
-  background-color: rgb(100, 91, 79);
   display: flex;
+  box-sizing: border-box;
+
+  gap: 10px;
+
+  width: var(--view-width);
   height: 100px;
-  width: 400px;
+
+  border-radius: 10px;
 
   margin-top: 10px;
   padding: 10px;
 
-  gap: 10px;
-
-  border-radius: 10px;
-  box-sizing: border-box;
+  background-color: rgb(100, 91, 79);
 }
 
 .slot {
-  background-color: rgb(172, 172, 172);
+  display: flex;
+  box-sizing: border-box;
+
+  justify-content: center;
+  align-items: center;
+
   flex: 1;
 
   border-radius: 10px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
+  background-color: rgb(172, 172, 172);
 }
 
 .item {
   position: absolute;
+
   width: 100px;
+
   user-select: none;
 }
 
 /* when an item is in your inventory */
 .slot > .item {
   position: unset;
+
   width: 80%;
 }

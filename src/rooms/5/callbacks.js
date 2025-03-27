@@ -1,11 +1,11 @@
 "use strict";
 
 function clickedSwitchSlot() {
-  console.log('its missing a switch')
+  Notify.push('its missing a switch')
 }
 
 function openRedDoor(element) {
-  console.log('it had a bunch of switches inside!')
+  Notify.push('it had a bunch of switches inside!')
 
   element.classList.remove("shut")
   element.classList.add("open")
@@ -17,7 +17,7 @@ function openRedDoor(element) {
 function itemIsSwitch(slot, item) {
   // return whether it's allowed
   if (!(item.dataset.gameItem == "switch")) {
-    console.log("I can only put switches on the switch board")
+    Notify.push("I can only put switches on the switch board")
     return false
   }
 
@@ -51,34 +51,34 @@ function switchConnected(slot, item) {
 function useItem(element, withObject) {
   switch (element.dataset.gameItem) {
     case "switch":
-      console.log("I think i can connect this to the switch board")
+      Notify.push("I think i can connect this to the switch board")
       break
 
     case "screwdriver":
       if (!withObject) {
-        console.log("Maybe i can jimmy something open with this")
+        Notify.push("Maybe i can jimmy something open with this")
         break
 
       } else if (withObject.dataset.gameItem && withObject.dataset.gameItem.includes("switch-")) {
-        console.log("this switch works fine, just need to attach it to something")
+        Notify.push("this switch works fine, just need to attach it to something")
         break
 
       } else {
         // must be a door or some other item
-        console.log("I can't use this there")
+        Notify.push("I can't use this there")
       }
       break
 
     case "lockbox":
-      console.log("There's something inside this box, the lock seems busted though")
+      Notify.push("There's something inside this box, the lock seems busted though")
       break
 
     case "key":
-      console.log("This seems like a regular door key, perhaps i can use it over there")
+      Notify.push("This seems like a regular door key, perhaps i can use it over there")
       break
   }
 }
 
 function fullInventory() {
-  console.log("inventory full!")
+  Notify.push("inventory full!")
 }
