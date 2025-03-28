@@ -1,3 +1,9 @@
+# A working room
+
+See the files in the `/js` folder for more information on each of the specific systems.
+
+There is a template version of this room's `index.html` in the `/rooms` directory (above this one).
+
 ## Structure
 
 - `assets/`         All the pictures, sounds, stuff specific to this room
