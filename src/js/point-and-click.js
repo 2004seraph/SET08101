@@ -868,6 +868,12 @@ class Inventory { // you will not be able to create NEW instances of this class 
         // should always be true
         console.assert(this.#moveToInventory(element));
 
+        // how it's been positioned in the scene, not needed anymore
+        element.style.top = 'unset';
+        element.style.left = 'unset';
+        element.style.right = 'unset';
+        element.style.bottom = 'unset';
+
       } else {
         this.#evalAttribute(element, element.dataset.use);
       }

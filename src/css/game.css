@@ -1,42 +1,132 @@
 /* Meant to be included on every room page */
 
 @import url("global.css");
-
+@import url("game/scene.css");
+@import url("game/quests.css");
+@import url("game/inventory.css");
 
 :root {
   --view-width: 400px;
   --view-height: 400px;
+  --hotbar-height: 100px;
 
   --map-width: 1200px;
 }
 
 main {
-
   display: flex;
 
-  gap: 10px;
+  gap: 20px;
 
   flex-wrap: wrap-reverse;
+  max-width: fit-content;
 
   align-items: stretch;
   justify-content: center;
 }
 
-#quests {
-  flex: 1;
+#log {
+  box-shadow: 0 0 0 2px #403e52e1, 0 0 0 6px #1f1f1f, 0 0 14px 3px #000000;
 
-  min-width: 200px;
-  width: 300px;
-  max-width: var(--view-width);
+  border-radius: 10px;
 
-  /* min-height: 400px; */
+  height: 3em;
 
-  background-color: black;
+  margin-bottom: 20px;
+  padding: 10px;
+
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+  scrollbar-color: grey transparent;
+
+  background: linear-gradient(45deg, rgba(0,0,0,1) 95%, rgb(27, 32, 110) 96%, rgb(184, 184, 184) 100%);
+}
+#log > div {
+  margin-bottom: 2em;
+}
+#log > div:last-child {
+  margin-bottom: unset;
 }
 
-#playArea {
-  position: relative;
-  z-index: 100;
+nav {
+  --horizontal-padding: 5px;
+
+  width: auto;
+  /* flex: 1; */
+  height: 40px;
+  margin-bottom: 20px;
+
+  background: linear-gradient(90deg, rgb(233, 147, 184) 0%, rgb(153, 0, 255) 15%, rgb(243, 165, 243) 31%, rgba(208,178,213,1) 35%, rgba(205,178,214,1) 38%, rgba(200,179,216,1) 53%, rgb(151, 101, 179) 65%, rgba(94,29,130,1) 80%, rgba(148,187,233,1) 100%);
+
+  box-shadow: 0 0 0 2px #403e52e1, 0 0 0 6px #1f1f1f, 0 0 14px 2px #000000;
+
+  border-radius: 3px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: var(--horizontal-padding);
+  padding-right: var(--horizontal-padding);
+}
+
+nav > a {
+  width: 18%;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #332570;
+  color: white;
+
+  touch-action: manipulation;
+  appearance: none;
+
+  vertical-align: middle;
+
+  background: transparent;
+  background-color: #6d5eb1;
+  background-image: radial-gradient(75% 50% at 50% 0%, #5cedfa 12%, transparent), radial-gradient(75% 50% at 50% 85%, #dd8dfc, transparent);
+
+  border: 1px solid #fedcff;
+  box-shadow: inset 0 0 2px 1px rgba(255, 255, 255, 0.2), 0 1px 4px 1px rgba(17, 110, 231, 0.2), 0 1px 4px 1px rgba(0, 0, 0, 0.1);
+
+  padding: 0;
+  margin: 0;
+  margin: 3px;
+
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  text-shadow: 0 1px 1px #116ee7;
+
+  transition-property: border-color, transform, background-color;
+  transition-duration: 0.2s;
+}
+nav > a:focus {
+  border-color: #0048d5;
+  background-color: #0048d5;
+}
+nav > a:hover {
+  border-color: #0048d5;
+  background-color: #0048d5;
+}
+nav > a:active {
+  border-color: #0048d5;
+  background-color: #0048d5;
+}
+
+
+#app {
+  padding: 30px;
+  border-radius: 3px;
+
+  display: flex;
+  flex-direction: column;
+
+  outline: 10px outset #46616d;
+  border: 2px solid rgb(52, 10, 107);
+  background: linear-gradient(45deg, rgb(91, 16, 190) 0%, rgb(23, 18, 37) 60%);
+  box-shadow: 0 0 0 2px #403e52e1, 0 0 0 6px #1f1f1f, 0 0 14px 3px #000000;
 }
 
 #notifications {
@@ -45,73 +135,41 @@ main {
   left: 0;
 }
 
-#game {
-  width: var(--view-width);
-
-  overflow-x: scroll;
-  overflow-y: hidden;
-
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
-}
-
-#game::-webkit-scrollbar {
-  display: none;  /* Safari and Chrome */
-}
-
-
-#stage {
-  position: relative;
-
-  background-color: rgb(156, 105, 105);
-
-  width: var(--map-width);
-  height: var(--view-height);
-}
-
-
-#hotbar {
+#topbar {
   display: flex;
   box-sizing: border-box;
 
   gap: 10px;
 
   width: var(--view-width);
-  height: 100px;
+  height: var(--hotbar-height);
+
+  box-shadow: 0 0 0 2px #403e52e1, 0 0 0 6px #1f1f1f, 0 0 14px 3px #000000;
 
   border-radius: 10px;
 
   margin-top: 10px;
   padding: 10px;
 
-  background-color: rgb(100, 91, 79);
+  background: linear-gradient(45deg, rgba(0,0,0,1) 50%, rgb(39, 39, 39) 93%, rgb(184, 184, 184) 100%);
+
 }
 
-.slot {
-  display: flex;
-  box-sizing: border-box;
+/* mobile view */
+@media only screen and (max-width: 700px) {
+  #app {
+    outline: unset;
+    border: unset;
+    background-color: unset;
+    background: unset;
+    box-shadow: unset;
 
-  justify-content: center;
-  align-items: center;
+    padding: 0;
+    margin: 5px;
+  }
 
-  flex: 1;
-
-  border-radius: 10px;
-
-  background-color: rgb(172, 172, 172);
-}
-
-.item {
-  position: absolute;
-
-  width: 100px;
-
-  user-select: none;
-}
-
-/* when an item is in your inventory */
-.slot > .item {
-  position: unset;
-
-  width: 80%;
+  nav, main {
+    min-width: 200px;
+    max-width: var(--view-width);
+  }
 }

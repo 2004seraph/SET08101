@@ -68,7 +68,6 @@
   user-select: none;
 }
 
-
 .switchboardSlot {
   background-color: aqua;
 
@@ -77,6 +76,10 @@
   width: 80px;
   height: 80px;
   position: unset;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .switchboardSlot > .item {

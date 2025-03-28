@@ -4,7 +4,8 @@
 
 class Notify {
   // config
-  static containerElement = document.querySelector("#notifications");
+  static containerElement = document.querySelector(".notifications");
+  static #temp = false;
   static #timeOut = 3;
   static #maximum = 3;
 
@@ -17,9 +18,11 @@ class Notify {
     constructor(element, timeOut) {
       this.#element = element;
 
-      this.#countdown = setTimeout(() => {
-        this.destroy();
-      }, timeOut * 1000);
+      if (Notify.#temp) {
+        this.#countdown = setTimeout(() => {
+          this.destroy();
+        }, timeOut * 1000);
+      }
     }
 
     destroy() {

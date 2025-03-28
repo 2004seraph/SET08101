@@ -12,75 +12,99 @@
     <img class="item" src="assets/key.png"
       data-crafting-recipe="key" data-combines="lockbox, screwdriver" data-disallow-multiple="true"
       data-use="useItem(this, withObject)"
-      data-on-pickup="console.log('ooh a key')">
+      data-on-pickup="Notify.push('ooh a key')">
   </div>
 
-  <main>
-    <div id="quests">
-      <p>Quests</p>
+  <div id="app">
+    <nav>
+      <a> &lt;&lt; </a>
+      <a href="../../">Home</a>
+      <a> &gt;&gt; </a>
+    </nav>
+    <div class="notifications" id="log">
+      <!-- <p>test</p> -->
     </div>
-    <div id="playArea">
-      <div id="notifications"></div>
-      <div id="game">
-        <div id="stage">
-          <img class="item switch" src="assets/switch.png" style="top: 280px; left: 500px;"
-            data-game-item="switch"
-            data-use="useItem(this, withObject)">
+    <main>
+      <div class="crt-screen" id="quests">
+        <hr>
+        <p style="font-size: 0.6em;background-color: rgb(195, 0, 255)">Go OS 3, Copyright (c) Leonidas Inc.</p>
+        <br>
+        <p style="font-size: 0.6em;">Booting Quest shell...</p>
+        <p>===</p>
+        <h2>Quests</h2>
+        <div id="quest-list">
+          <!-- define the quests here -->
+          <!-- content is title, everything else is data -->
+          <h3 data-quest="throwAway" title="You know what">Throw it away</h3>
+          <h3 data-quest="pickup" title="Gotta be prepared">Pick up everything</h3>
+        </div>
+        <hr>
+      </div>
+      <div class="gimbalLook" id="playArea">
+        <div id="notifications"></div>
+        <div id="game">
+          <div id="stage">
+            <img class="item switch" src="assets/switch.png" style="top: 280px; left: 500px;"
+              data-game-item="switch"
+              data-use="useItem(this, withObject)">
 
-          <img class="item" src="assets/screwdriver.png" style="top: 280px; left: 410px;"
-            data-game-item="screwdriver"
-            data-crafting-consumable="false"
-            data-use="useItem(this, withObject)">
+            <img class="item" src="assets/screwdriver.png" style="top: 280px; left: 410px;"
+              data-game-item="screwdriver"
+              data-crafting-consumable="false"
+              data-use="useItem(this, withObject)">
 
-          <img class="item" src="assets/box.png" style="top: 330px; left: 410px;"
-            data-game-item="lockbox"
-            data-use="useItem(this, withObject)">
+            <img class="item" src="assets/box.png" style="top: 330px; left: 410px;"
+              data-game-item="lockbox"
+              data-use="useItem(this, withObject)">
 
-          <img class="item switch" src="assets/switch.png" style="top: 260px; left: 695px;"
-            data-game-item="switch"
-            data-use="useItem(this, withObject)">
+            <img class="item switch" src="assets/switch.png" style="top: 260px; left: 695px;"
+              data-game-item="switch"
+              data-use="useItem(this, withObject)">
 
-          <img class="item switch" src="assets/switch.png" style="top: 265px; left: 695px;"
-            data-game-item="switch"
-            data-use="useItem(this, withObject)">
+            <img class="item switch" src="assets/switch.png" style="top: 265px; left: 695px;"
+              data-game-item="switch"
+              data-use="useItem(this, withObject)">
 
-          <img class="item switch" src="assets/switch.png" style="top: 260px; left: 690px;"
-            data-game-item="switch"
-            data-use="useItem(this, withObject)">
+            <img class="item switch" src="assets/switch.png" style="top: 260px; left: 690px;"
+              data-game-item="switch"
+              data-use="useItem(this, withObject)">
 
-          <div id="interactions">
-            <div class="door shut" id="lockedDoor" style="top: 250px; left: 700px;"
-              data-door="key" data-eats-key="true"
-              data-on-click="console.log('a locked wardrobe')"
-              data-on-open="openRedDoor(this)">
+            <div id="interactions">
+              <div class="door shut" id="lockedDoor" style="top: 250px; left: 700px;"
+                data-door="key" data-eats-key="true"
+                data-on-click="Notify.push('a locked wardrobe')"
+                data-on-open="openRedDoor(this)">
 
-              <div class="doorHandle"></div>
-            </div>
+                <div class="doorHandle"></div>
+              </div>
 
-            <div id="switchboard" style="top: 0px; left: 400px;">
-              <h2>Switchboard</h2>
-              <div>
-                <div class="slot switchboardSlot"
-                  data-slot="switchboard"
-                  data-callback="return itemIsSwitch(this, withObject)"
-                  data-on-click="clickedSwitchSlot()"
-                  data-on-slotted="switchConnected(this, withObject)"
-                  data-duplicate-slot="4">
+              <div id="switchboard" style="top: 0px; left: 400px;">
+                <h2>Switchboard</h2>
+                <div>
+                  <div class="slot switchboardSlot"
+                    data-slot="switchboard"
+                    data-callback="return itemIsSwitch(this, withObject)"
+                    data-on-click="clickedSwitchSlot()"
+                    data-on-slotted="switchConnected(this, withObject)"
+                    data-duplicate-slot="4">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div id="hotbar">
-        <div class="slot" data-slot data-duplicate-slot="4"></div>
+        <div id="hotbar">
+          <div class="inventory-slot" data-slot data-duplicate-slot="5"></div>
+        </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
 
   <script src="../../js/notification.js"></script>
   <script src="../../js/point-and-click.js"></script>
+  <script src="../../js/look.js"></script>
+  <script src="../../js/quest.js"></script>
 
   <script src="callbacks.js"></script>
   <script src="main.js"></script>
