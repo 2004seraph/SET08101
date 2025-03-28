@@ -1,9 +1,12 @@
 /* Meant to be included on every room page */
 
 @import url("global.css");
+
 @import url("game/scene.css");
 @import url("game/quests.css");
 @import url("game/inventory.css");
+@import url("game/action-log.css");
+@import url("game/navbar.css");
 
 :root {
   --view-width: 400px;
@@ -11,6 +14,19 @@
   --hotbar-height: 100px;
 
   --map-width: 1200px;
+}
+
+#app {
+  padding: 30px;
+  border-radius: 3px;
+
+  display: flex;
+  flex-direction: column;
+
+  outline: 5px outset #797c7e;
+  border: 2px solid rgb(52, 10, 107);
+  background: linear-gradient(45deg, rgb(150, 95, 141) 0%, rgb(50, 41, 73) 60%);
+  box-shadow: 0 0 0 2px #403e52e1, 0 0 0 6px #1f1f1f, 0 0 14px 3px #000000;
 }
 
 main {
@@ -25,137 +41,19 @@ main {
   justify-content: center;
 }
 
-#log {
-  box-shadow: 0 0 0 2px #403e52e1, 0 0 0 6px #1f1f1f, 0 0 14px 3px #000000;
-
-  border-radius: 10px;
-
-  height: 3em;
-
-  margin-bottom: 20px;
-  padding: 10px;
-
-  overflow-y: auto;
-
-  scrollbar-width: thin;
-  scrollbar-gutter: stable;
-  scrollbar-color: grey transparent;
-
-  background: linear-gradient(45deg, rgba(0,0,0,1) 95%, rgb(27, 32, 110) 96%, rgb(184, 184, 184) 100%);
-}
-#log > div {
-  margin-bottom: 2em;
-}
-#log > div:last-child {
-  margin-bottom: unset;
-}
-
-nav {
-  --horizontal-padding: 5px;
-
-  width: auto;
-  /* flex: 1; */
-  height: 40px;
-  margin-bottom: 20px;
-
-  background: linear-gradient(90deg, rgb(233, 147, 184) 0%, rgb(153, 0, 255) 15%, rgb(243, 165, 243) 31%, rgba(208,178,213,1) 35%, rgba(205,178,214,1) 38%, rgba(200,179,216,1) 53%, rgb(151, 101, 179) 65%, rgba(94,29,130,1) 80%, rgba(148,187,233,1) 100%);
-
-  box-shadow: 0 0 0 2px #403e52e1, 0 0 0 6px #1f1f1f, 0 0 14px 2px #000000;
-
-  border-radius: 3px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-left: var(--horizontal-padding);
-  padding-right: var(--horizontal-padding);
-}
-
-nav > a {
-  width: 18%;
-  cursor: pointer;
-  border-radius: 5px;
-  background-color: #332570;
-  color: white;
-
-  touch-action: manipulation;
-  appearance: none;
-
-  vertical-align: middle;
-
-  background: transparent;
-  background-color: #6d5eb1;
-  background-image: radial-gradient(75% 50% at 50% 0%, #5cedfa 12%, transparent), radial-gradient(75% 50% at 50% 85%, #dd8dfc, transparent);
-
-  border: 1px solid #fedcff;
-  box-shadow: inset 0 0 2px 1px rgba(255, 255, 255, 0.2), 0 1px 4px 1px rgba(17, 110, 231, 0.2), 0 1px 4px 1px rgba(0, 0, 0, 0.1);
-
-  padding: 0;
-  margin: 0;
-  margin: 3px;
-
-  text-align: center;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  text-shadow: 0 1px 1px #116ee7;
-
-  transition-property: border-color, transform, background-color;
-  transition-duration: 0.2s;
-}
-nav > a:focus {
-  border-color: #0048d5;
-  background-color: #0048d5;
-}
-nav > a:hover {
-  border-color: #0048d5;
-  background-color: #0048d5;
-}
-nav > a:active {
-  border-color: #0048d5;
-  background-color: #0048d5;
-}
-
-
-#app {
-  padding: 30px;
-  border-radius: 3px;
-
-  display: flex;
-  flex-direction: column;
-
-  outline: 10px outset #46616d;
-  border: 2px solid rgb(52, 10, 107);
-  background: linear-gradient(45deg, rgb(91, 16, 190) 0%, rgb(23, 18, 37) 60%);
-  box-shadow: 0 0 0 2px #403e52e1, 0 0 0 6px #1f1f1f, 0 0 14px 3px #000000;
-}
-
-#notifications {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-#topbar {
-  display: flex;
-  box-sizing: border-box;
-
-  gap: 10px;
-
-  width: var(--view-width);
-  height: var(--hotbar-height);
-
-  box-shadow: 0 0 0 2px #403e52e1, 0 0 0 6px #1f1f1f, 0 0 14px 3px #000000;
-
-  border-radius: 10px;
-
-  margin-top: 10px;
-  padding: 10px;
-
-  background: linear-gradient(45deg, rgba(0,0,0,1) 50%, rgb(39, 39, 39) 93%, rgb(184, 184, 184) 100%);
-
-}
-
 /* mobile view */
+@media only screen and (max-width: 650px) {
+  #quests {
+    padding-top: 10px;
+    padding-bottom: 30px;
+  }
+  #quests > hr:first-child {
+    display: none;
+  }
+  #quests > hr:last-child {
+    display: none;
+  }
+}
 @media only screen and (max-width: 700px) {
   #app {
     outline: unset;
@@ -166,6 +64,10 @@ nav > a:active {
 
     padding: 0;
     margin: 5px;
+  }
+
+  #log {
+    max-width: var(--view-width);
   }
 
   nav, main {

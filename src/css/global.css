@@ -1,7 +1,10 @@
 /* Meant to be included on all pages */
 
 @import url("variables.css");
-@import url("reset.css");
+@import url("global/reset.css");
+
+@import url("global/links.css");
+@import url("global/view-transition.css");
 
 html, body {
   /* width: 100%; */
@@ -23,67 +26,4 @@ body {
   color: var(--text-color);
 
   font-family: 'Courier New', Courier, monospace;
-}
-
-/* unvisited link */
-a:link {
-  color: rgb(255, 255, 255);
-}
-a:visited {
-  color: rgb(228, 240, 255);
-}
-/* mouse over link */
-a:hover {
-  color: rgb(255, 158, 207);
-}
-a:active {
-  color: rgb(255, 158, 207);
-}
-
-
-@view-transition {
-  navigation: auto;
-}
-
-/* Customize the default animation behavior */
-
-::view-transition-group(root) {
-  animation-duration: 0.5s;
-}
-
-/* Create a custom animation */
-
-@keyframes move-out {
-  from {
-    transform: translateY(0%);
-    opacity: 1;
-  }
-
-  to {
-    transform: translateY(-20%);
-    opacity: 0;
-  }
-}
-
-@keyframes move-in {
-  from {
-    transform: translateY(20%);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateY(0%);
-    opacity: 1;
-  }
-}
-
-/* Apply the custom animation to the old and new page states */
-
-::view-transition-old(root) {
-  animation: 0.4s ease-in both move-out;
-
-}
-
-::view-transition-new(root) {
-  animation: 0.4s ease-in both move-in;
 }

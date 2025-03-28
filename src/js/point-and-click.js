@@ -242,6 +242,14 @@ class Inventory { // you will not be able to create NEW instances of this class 
     return [ ...this.#slotGroups[this.#config.playerInventoryKey] ];
   }
 
+  get root() {
+    return this.#config.root;
+  }
+
+  get hotbarSlotGroupName() {
+    return this.#config.playerInventoryKey;
+  }
+
   // returns loads of information about an item HTML element
   getItemElementData(itemElement) {
     return {
@@ -520,6 +528,18 @@ class Inventory { // you will not be able to create NEW instances of this class 
     }
   }
 
+  // works exactly like addEventListener for DOM elements, but for custom events listed below
+  // Supported Events:
+  // "pickupItem" =>  callback will be supplied with an object, event.item is the item that
+  //                  was picked up
+  // "useItem" ```=> `callback will be supplied with an object, event.item is the item that
+  //                  was used, and event.withObject is the object it was used on
+  // EXAMPLE:
+  // window.inventory.addEventListener("pickupItem", (e) => console.log(e.item));
+  addEventListener(name, callback) {
+    this.#eventSystem.addEventListener(name, callback);
+  }
+
   // Other Config
   // ----------------------------------------------------------------------------------------------------
 
@@ -572,10 +592,6 @@ class Inventory { // you will not be able to create NEW instances of this class 
   // Getters and Setters, used like: `window.inventory.root.querySelector(...)` etc, (no parenthesis)
   // ----------------------------------------------------------------------------------------------------
 
-  get root() {
-    return this.#config.root;
-  }
-
 
 
   // Internal code, everything below cannot be accessed from instances, because its
@@ -625,7 +641,7 @@ class Inventory { // you will not be able to create NEW instances of this class 
 
   // default config values
   #config = {
-    root:                   document.body,
+    root:                   document.getElementById("playArea") ?? document.body,
     debug:                  false,
     noEval:                 false,
     allowRearrange:         true,
@@ -634,6 +650,8 @@ class Inventory { // you will not be able to create NEW instances of this class 
   }
 
   #eventListeners   = [];
+
+  #eventSystem = new EventSystem();
 
   #itemElements     = [];
   #craftingElements = [];
@@ -644,6 +662,9 @@ class Inventory { // you will not be able to create NEW instances of this class 
 
   // should only be instanced once per page
   constructor(config={}) {
+    this.#eventSystem.registerEvent("pickupItem");
+    this.#eventSystem.registerEvent("useItem");
+
     this.#applyConfig(config);
     this.reconfigure(false);
   }
@@ -838,7 +859,7 @@ class Inventory { // you will not be able to create NEW instances of this class 
 
         // FIXED: by preventing the craft drop event from propagating, but now the item's dragend
         // is firing wrongly
-        this.#evalAttribute(dragElementInstance, dragElementInstance.dataset.use, thisSlot.item);
+        this.#useItem(dragElementInstance, thisSlot.item);
 
         executeSceneSlot(thisSlot.item, otherSlot);
       }
@@ -874,8 +895,10 @@ class Inventory { // you will not be able to create NEW instances of this class 
         element.style.right = 'unset';
         element.style.bottom = 'unset';
 
+        this.#eventSystem.dispatchEvent("pickupItem", { item: element });
+
       } else {
-        this.#evalAttribute(element, element.dataset.use);
+        this.#useItem(element);
       }
     });
 
@@ -908,7 +931,7 @@ class Inventory { // you will not be able to create NEW instances of this class 
         // this should not fire if it is being dropped as a result of a successful usage in a crafting
         // recipe (item would've been non-consumable)
         if (!checkBoolAttr(element.getAttribute("data-used-to-craft"), false, true)) {
-          this.#evalAttribute(element, element.dataset.use, doorElement);
+          this.#useItem(element, doorElement);
 
         } else {
           // remove it to reset the state of the tool for future drag events
@@ -1146,6 +1169,12 @@ class Inventory { // you will not be able to create NEW instances of this class 
     return [...this.#getHeldElements(group)].some((i) => i == element);
   }
 
+  #useItem(element, on=null) {
+    this.#evalAttribute(element, element.dataset.use, on);
+
+    this.#eventSystem.dispatchEvent("useItem", { item: element, withObject: on });
+  }
+
   #disableSlot(element) {
     if (element.dataset.onClick) {
       element.style.cursor = 'unset';
@@ -1223,6 +1252,37 @@ class Inventory { // you will not be able to create NEW instances of this class 
 
 // generic helpers
 
+class EventSystem {
+  static #Event = class Event{
+    constructor(name) {
+      this.name = name;
+      this.callbacks = [];
+    }
+
+    registerCallback(callback){
+      this.callbacks.push(callback);
+    }
+  }
+
+  #events = {};
+
+  registerEvent(eventName) {
+    let event = new EventSystem.#Event(eventName);
+    this.#events[eventName] = event;
+  }
+
+  dispatchEvent(eventName, eventArgs) {
+    this.#events[eventName].callbacks.forEach(callback => callback(eventArgs));
+  };
+
+  addEventListener(eventName, callback) {
+    if (!this.#events[eventName]) {
+      throw new Error("Invalid event");
+    }
+    this.#events[eventName].registerCallback(callback);
+  };
+}
+
 function doNothingListener(e) {
   e.preventDefault();
 }
@@ -1270,7 +1330,7 @@ function duplicateElements() {
   });
 }
 
-function create() {
+function createInventorySystem() {
   console.info("Loading inventory script");
 
   let opts;
@@ -1328,41 +1388,10 @@ if (window.inventory) {
   }
 }
 
-create();
+createInventorySystem();
 
 })(); // End of script
 
-
-// Useful CSS
-// ------------------------------------------------------------------------------------------------------
-
-/* Not required by the point-and-click.js script, but it does do some common styling you'd probably
- * find desirable, it is also compatible with the examples at the top of the file.
- */
-/**
-[data-crafting-recipe] {
-  display: none;
-}
-
-[data-game-item] {
-  user-select: none;
-
-  cursor: pointer;
-}
-
-
-[data-door] {
-  user-select: none;
-}
-
-[data-game-item] {
-  position: absolute;
-}
-
-[data-slot] > [data-game-item] {
-  position: unset;
-}
-*/
 
 // ------------------------------------------------------------------------------------------------------
 // Made by Sarah Taseff

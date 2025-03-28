@@ -1,84 +1,88 @@
 "use strict";
 
-function clickedSwitchSlot() {
-  Notify.push('its missing a switch')
-}
+// just to group all the room 5 specific code under Room.*
+class Room {
 
-function openRedDoor(element) {
-  Notify.push('it had a bunch of switches inside!')
-
-  element.classList.remove("shut")
-  element.classList.add("open")
-  element.style.left = `${700 - 80}px`
-
-  document.querySelectorAll("[data-game-item='switch']").forEach(e => e.style.zIndex = 10)
-}
-
-function itemIsSwitch(slot, item) {
-  // return whether it's allowed
-  if (!(item.dataset.gameItem == "switch")) {
-    Notify.push("I can only put switches on the switch board")
-    return false
+  static clickedSwitchSlot() {
+    window.actionLog.push('its missing a switch')
   }
 
-  return true
-}
+  static openRedDoor(element) {
+    window.actionLog.push('it had a bunch of switches inside!')
 
-function switchConnected(slot, item) {
-  // prevent user from removing / swapping items on this slot now
-  window.inventory.disableItem(item)
+    element.classList.remove("shut")
+    element.classList.add("open")
+    element.style.left = `${700 - 80}px`
 
-  const ON = e => e.src.includes("assets/switch-on.png")
+    document.querySelectorAll("[data-game-item='switch']").forEach(e => e.style.zIndex = 10)
+  }
 
-  item.addEventListener("click", (e) => {
-    if (ON(item)) {
-      item.src = "assets/switch.png"
-    } else {
-      item.src = "assets/switch-on.png"
+  static itemIsSwitch(slot, item) {
+    // return whether it's allowed
+    if (!(item.dataset.gameItem == "switch")) {
+      window.actionLog.push("I can only put switches on the switch board")
+      return false
     }
 
-    const code = [...document.querySelectorAll(".switch")]
+    return true
+  }
 
-    if (ON(code[0]) && !ON(code[1]) && ON(code[2]) && ON(code[3])) {
-      alert("You're Winner!")
-    }
-  });
-}
+  static switchConnected(slot, item) {
+    // prevent user from removing / swapping items on this slot now
+    window.inventory.disableItem(item)
 
-// Generics
-// ----------------------------------------------------------------------------------------------------
+    const ON = e => e.src.includes("assets/switch-on.png")
 
-function useItem(element, withObject) {
-  switch (element.dataset.gameItem) {
-    case "switch":
-      Notify.push("I think i can connect this to the switch board")
-      break
-
-    case "screwdriver":
-      if (!withObject) {
-        Notify.push("Maybe i can jimmy something open with this")
-        break
-
-      } else if (withObject.dataset.gameItem && withObject.dataset.gameItem.includes("switch-")) {
-        Notify.push("this switch works fine, just need to attach it to something")
-        break
-
+    item.addEventListener("click", (e) => {
+      if (ON(item)) {
+        item.src = "assets/switch.png"
       } else {
-        // must be a door or some other item
-        Notify.push("I can't use this there")
+        item.src = "assets/switch-on.png"
       }
-      break
 
-    case "lockbox":
-      Notify.push("There's something inside this box, the lock seems busted though")
-      break
+      const code = [...document.querySelectorAll(".switch")]
 
-    case "key":
-      Notify.push("This seems like a regular door key, perhaps i can use it over there")
-      break
+      if (ON(code[0]) && !ON(code[1]) && ON(code[2]) && ON(code[3])) {
+        alert("You're Winner!")
+      }
+    });
   }
-}
 
-function fullInventory() {
-  Notify.push("inventory full!")
+  // Generics
+  // ----------------------------------------------------------------------------------------------------
+
+  static useItem(element, withObject) {
+    switch (element.dataset.gameItem) {
+      case "switch":
+        window.actionLog.push("I think i can connect this to the switch board")
+        break
+
+      case "screwdriver":
+        if (!withObject) {
+          window.actionLog.push("Maybe i can jimmy something open with this")
+          break
+
+        } else if (withObject.dataset.gameItem && withObject.dataset.gameItem.includes("switch-")) {
+          window.actionLog.push("this switch works fine, just need to attach it to something")
+          break
+
+        } else {
+          // must be a door or some other item
+          window.actionLog.push("I can't use this there")
+        }
+        break
+
+      case "lockbox":
+        window.actionLog.push("There's something inside this box, the lock seems busted though")
+        break
+
+      case "key":
+        window.actionLog.push("This seems like a regular door key, perhaps i can use it over there")
+        break
+    }
+  }
+
+  static fullInventory() {
+    window.actionLog.push("inventory full!")
+  }
 }

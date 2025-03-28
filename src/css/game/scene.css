@@ -28,7 +28,6 @@
   display: none;  /* Safari and Chrome */
 }
 
-
 #stage {
   position: relative;
 
@@ -36,4 +35,12 @@
 
   width: var(--map-width);
   height: var(--view-height);
+
+  border: unset;
+
+  filter: saturate(3);
+}
+
+img {
+  filter: saturate(10);
 }

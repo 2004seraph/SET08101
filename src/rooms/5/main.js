@@ -1,5 +1,9 @@
 "use strict";
 
+(function() {
+
+const areSetsEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(value));
+
 // setting the horizontal scroll position on page load
 document.addEventListener('DOMContentLoaded', () => {
   const element = document.getElementById("game")
@@ -8,10 +12,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.inventory.reconfigure(
   {
-    fullInventoryCallback: fullInventory,
-
+    fullInventoryCallback: Room.fullInventory
     // debug: true,
   }
 )
 
-console.log("Items in the scene:", window.inventory.allItems)
+window.inventory.addEventListener("pickupItem", () => {
+
+  if (areSetsEqual(
+    new Set(window.inventory.root.querySelectorAll("[data-game-item]")),
+    new Set(window.inventory.root.querySelectorAll(
+      `[data-slot='${window.inventory.hotbarSlotGroupName}'] > [data-game-item]`))
+  )) {
+
+    window.actionLog.push('i got a lotta stuff');
+    window.quests.complete("pickup");
+  }
+})
+
+console.log("Items in the scene:", window.inventory.allItems);
+
+})();

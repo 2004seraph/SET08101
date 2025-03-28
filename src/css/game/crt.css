@@ -1,4 +1,56 @@
 
+.crt-screen {
+  position: relative;
+  animation: textShadow 1.6s infinite;
+
+  border: solid 4px rgb(10, 10, 10);
+
+  border-radius: 5px;
+
+  padding: 5px;
+}
+
+.crt-screen::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 2;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  background-repeat: repeat;
+  /* animation: scrolling 150s infinite; */
+}
+
+.crt-screen::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(18, 16, 16, 0.1);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+  animation: flicker 0.15s infinite;
+  background-repeat: repeat;
+}
+
+@keyframes scrolling {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 50% 105%;
+  }
+}
+
 
 @keyframes textShadow {
   0% {
@@ -66,42 +118,6 @@
   }
 }
 
-.crt-screen {
-  position: relative;
-  animation: textShadow 1.6s infinite;
-
-  border: solid 5px rgb(10, 10, 10);
-
-  border-radius: 5px;
-
-  padding: 5px;
-}
-
-.crt-screen::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-  z-index: 2;
-  background-size: 100% 2px, 3px 100%;
-  pointer-events: none;
-  background-repeat: repeat;
-  /* animation: scrolling 150s infinite; */
-}
-
-@keyframes scrolling {
-  0% {
-    background-position: 0% 0%;
-  }
-  100% {
-    background-position: 50% 105%;
-  }
-}
-
 @keyframes flicker {
   0% {
   opacity: 0.27861;
@@ -166,20 +182,4 @@
   100% {
   opacity: 0.24387;
   }
-}
-
-.crt-screen::after {
-  content: " ";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: rgba(18, 16, 16, 0.1);
-  opacity: 0;
-  z-index: 2;
-  pointer-events: none;
-  animation: flicker 0.15s infinite;
-  background-repeat: repeat;
 }

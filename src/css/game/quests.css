@@ -68,6 +68,11 @@
   width: 100%;
 }
 
+[data-quest] {
+  text-align: center;
+  width: 100%;
+}
+
 /* camera cut out */
 #quests > hr:first-child {
   height: var(--cutout-height);
@@ -98,18 +103,4 @@
 
   /* bottom: 10px; */
   /* left: calc(50% - var(--width) / 2); */
-}
-
-/* mobile view */
-@media only screen and (max-width: 650px) {
-  #quests {
-    padding-top: 10px;
-    padding-bottom: 30px;
-  }
-  #quests > hr:first-child {
-    display: none;
-  }
-  #quests > hr:last-child {
-    display: none;
-  }
 }
