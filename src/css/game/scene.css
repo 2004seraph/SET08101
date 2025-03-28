@@ -9,7 +9,7 @@
   gap: 10px;
 }
 
-#game {
+#scene-viewport {
   width: var(--view-width);
   height: var(--view-height);
 
@@ -25,11 +25,11 @@
   border: 8px double #1b1b1b;
 }
 
-#game::-webkit-scrollbar {
+#scene-viewport::-webkit-scrollbar {
   display: none;  /* Safari and Chrome */
 }
 
-#stage {
+#map {
   position: relative;
 
   background-color: rgb(156, 105, 105);

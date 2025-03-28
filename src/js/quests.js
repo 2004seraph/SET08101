@@ -67,6 +67,10 @@ class QuestSystem {
 
     save(this.completed);
   }
+
+  isComplete(id) {
+    return this.completed.includes(id);
+  }
 }
 
 const SAVE_KEY = "quests";

@@ -1,8 +1,8 @@
 /* Meant to be included on all pages */
 
 @import url("variables.css");
-@import url("global/reset.css");
 
+@import url("global/reset.css");
 @import url("global/links.css");
 @import url("global/view-transition.css");
 

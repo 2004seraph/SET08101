@@ -6,7 +6,7 @@ const areSetsEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(
 
 // setting the horizontal scroll position on page load
 document.addEventListener('DOMContentLoaded', () => {
-  const element = document.getElementById("game")
+  const element = document.getElementById("scene-viewport")
   element.scrollLeft = 350
 })
 
@@ -25,8 +25,10 @@ window.inventory.addEventListener("pickupItem", () => {
       `[data-slot='${window.inventory.hotbarSlotGroupName}'] > [data-game-item]`))
   )) {
 
-    window.actionLog.push('i got a lotta stuff');
-    window.quests.complete("pickup");
+    if (!window.quests.isComplete("pickup")) {
+      window.actionLog.push('i got a lotta stuff');
+      window.quests.complete("pickup");
+    }
   }
 })
 
