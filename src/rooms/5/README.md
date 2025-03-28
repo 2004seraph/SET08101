@@ -4,6 +4,8 @@ See the files in the `/js` folder for more information on each of the specific s
 
 There is a template version of this room's `index.html` in the `/rooms` directory (above this one).
 
+Play it here on our pages deployment: [2004seraph.github.io/SET08101/rooms/5/](https://2004seraph.github.io/SET08101/rooms/5/)
+
 ## Structure
 
 - `assets/`         All the pictures, sounds, stuff specific to this room
