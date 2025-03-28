@@ -1,6 +1,9 @@
 "use strict";
 
-// will need to be a module
+/**
+ * You do not need to manually use this script,
+ * it provides a backend for the other scripts to use
+ */
 
 (function() {
 

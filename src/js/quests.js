@@ -2,6 +2,25 @@
 
 // will need to be a module
 
+/**
+ * HOW TO USE:
+ *
+ * 1. Define a quest by setting the data-quest attribute to a unique id, on some text element
+ *
+ * 2. Use your own JavaScript logic to detect when that quest has been completed
+ *
+ * 3. Call window.quests.complete(id) where the id is the one you set on the text element
+ *
+ * The script will automatically cross out the corresponding quest text, it will also
+ * save the progress if the saveState.js script was loaded prior to this one.
+ *
+ * OPTIONAL:
+ *
+ * A data-quest attribute can also be followed by a data-on-complete attribute, here you can
+ * put some JavaScript that will run when the user completes the quest, it will also run again
+ * if the page is reloading and it was completed in the past (requires saveState.js to be loaded)
+ */
+
 (function() {
 
 class QuestSystem {

@@ -1,6 +1,21 @@
 "use strict";
 
-// add fading + transitions
+/**
+ * HOW TO USE:
+ *
+ * 1. Include on page.
+ *
+ * 2. window.actionLog.push("I did this thing just now")
+ *
+ * 3. The script will create a new <p> element and insert it under the div with the
+ * .action-log class.
+ *
+ * You can access all previous messages, starting from the most recent one, with
+ * window.actionLog.history
+ *
+ * Log history will be automatically saved and reloaded if the saveState.js script
+ * was included before this one.
+ */
 
 (function() {
 
@@ -15,9 +30,9 @@ class ActionLog {
       return this.#message;
     }
 
-    constructor(message, element, timeOut) {
+    constructor(message, parentElement, timeOut) {
       this.#message = message;
-      this.#element = element;
+      this.#element = this.#createBubble(parentElement);
 
       if (timeOut) {
         this.#countdown = setTimeout(() => {
@@ -30,6 +45,16 @@ class ActionLog {
       clearTimeout(this.#countdown);
       this.#element.remove();
     }
+
+    #createBubble(parentElement) {
+      // create element and parent it
+      const bubble = document.createElement('p');
+
+      bubble.textContent = this.#message;
+
+      parentElement.prepend(bubble);
+      return bubble;
+    }
   }
 
   // state
@@ -41,13 +66,30 @@ class ActionLog {
     messageLimit: 3
   }
 
+  get history() {
+    return this.#current.map(m => m.message);
+  }
+
   constructor(state=[], config={}) {
     this.#config = { ...this.#config, ...config };
 
-    state.reverse().forEach(m => this.push(m));
+    state.reverse().forEach(m => this.#push(m));
   }
 
   push(message) {
+    this.#push(message);
+
+    save(this.history);
+  }
+
+  clearAll() {
+    this.#current.forEach(e => e.destroy());
+    this.#current = [];
+
+    save(this.history);
+  }
+
+  #push(message) {
     // create element
     this.#current.unshift(this.#createMessage(message));
 
@@ -56,30 +98,13 @@ class ActionLog {
 
     //scroll to top of log
     this.#config.containerElement.scrollTo({ top: 0, behavior: "smooth" });
-    save(this.#current);
-  }
-
-  clearAll() {
-    this.#current.forEach(e => e.destroy());
-    this.#current = [];
-    save(this.#current);
   }
 
   #createMessage(message) {
     return new ActionLog.#Message(
       message,
-      this.#createBubble(message),
+      this.#config.containerElement,
       this.#config.timeOut);
-  }
-
-  #createBubble(message) {
-    // create element and parent it
-    const bubble = document.createElement('p');
-
-    bubble.textContent = message;
-
-    this.#config.containerElement.prepend(bubble);
-    return bubble;
   }
 
   #trimQueue(messages) {
@@ -98,7 +123,6 @@ class ActionLog {
 const SAVE_KEY = "actions";
 
 function save(actions) {
-  actions = actions.map(m => m.message);
   window.saveState?.set(SAVE_KEY, actions);
 }
 

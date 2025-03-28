@@ -1,9 +1,32 @@
 "use strict";
 
+/**
+ * HOW TO USE:
+ *
+ * Include this script in your HTML, then whack the `.gimbalLook` class on any element
+ * you want camera behaviour for.
+ *
+ * You can then move the mouse to the edges and have the camera look in that direction.
+ * You can also use the NUMPAD arrows or regular arrow keys to pan the camera in all
+ * directions.
+ *
+ * It must be structured like so:
+ *
+ * <div class="gimbalLook">
+ *  <!-- This div must not expand when children overflow, it needs to keep its own size
+ *    and scroll them offscreen instead -->
+ *
+ *  <div id="world">
+ *    <!-- This div must be LARGER than the parent div -->
+ *  </div>
+ * </div>
+ */
+
 (function() {
   // config
   const panArea = 100;
   const acceleration = 4;
+  const inputDelay = 300;
 
   // state
   const scrollDivs = new Set();
@@ -18,10 +41,6 @@
 
   function clamp(num, min, max) {
     return Math.min(Math.max(num, min), max);
-  }
-
-  function sigmoid(z) {
-    return 1 / (1 + Math.exp(-z));
   }
 
   function pan(element) {
@@ -57,11 +76,16 @@
     verticalPan = verticalPan * Math.abs(verticalPan);
 
     element.scroll({ left: element.scrollLeft + horizontalPan * acceleration, top: element.scrollTop + verticalPan * acceleration });
+
+    // how much did we move?
+    return Math.sqrt((horizontalPan ** 2) + (verticalPan ** 2));
   }
 
   document.querySelectorAll(".gimbalLook").forEach(v => {
     v.addEventListener("mouseenter", (e) => {
-      scrollDivs.add(v);
+      // setTimeout(() => {
+        scrollDivs.add(v);
+      // }, inputDelay);
     });
     v.addEventListener("mouseleave", (e) => {
       scrollDivs.delete(v);
@@ -72,6 +96,11 @@
   });
 
   function main() {
+    // scrollDivs.forEach(d => {
+    //   if (pan(d) == 0) {
+    //     scrollDivs.delete(d);
+    //   }
+    // });
     scrollDivs.forEach(d => pan(d));
 
     requestAnimationFrame(main);
