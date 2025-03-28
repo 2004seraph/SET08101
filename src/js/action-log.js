@@ -1,6 +1,8 @@
 "use strict";
 
 /**
+ * Records messages in the order they are posted, like console.log
+ *
  * HOW TO USE:
  *
  * 1. Include on page.
