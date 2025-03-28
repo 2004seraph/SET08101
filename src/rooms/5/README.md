@@ -1,0 +1,7 @@
+## Structure
+
+- assets/         All the pictures, sounds, stuff specific to this room
+- callbacks.js    Just where I put all my functions that I use for callbacks in the HTML game attributes, a purely optional separation from main.js
+- main.js         Where I write all the miscillaneous immediate code, like where I add some event listeners to the inventory, change some of its settings, etc.
+- style.css       Styling specific to this room, like the door, you'll notice I `@import` game.css here (important)
+- index.html      Where the actual scene, and all the items in it, are defined and layed out.
