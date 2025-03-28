@@ -11,9 +11,10 @@
 
 #game {
   width: var(--view-width);
+  height: var(--view-height);
 
-  overflow-x: scroll;
-  overflow-y: hidden;
+  overflow-x: auto;
+  overflow-y: auto;
 
   -ms-overflow-style: none;  /* Internet Explorer 10+ */
   scrollbar-width: none;  /* Firefox */
@@ -34,7 +35,7 @@
   background-color: rgb(156, 105, 105);
 
   width: var(--map-width);
-  height: var(--view-height);
+  height: var(--map-height);
 
   border: unset;
 
