@@ -1265,8 +1265,8 @@ export class Inventory { // you will not be able to create NEW instances of this
     console.info("Inventory script loaded: window.inventory object is ready");
   }
 
-// This is where the script actually starts running code
-// ------------------------------------------------------------------------------------------------------
+  // This is where the script actually starts running code
+  // ------------------------------------------------------------------------------------------------------
 
   static {
     // Attaches an instance of the class above to the global window object,
