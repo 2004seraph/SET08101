@@ -1,5 +1,7 @@
 "use strict";
 
+import { EventSystem, ArrayUtil, DOMUtil, NOT } from "./utils.mjs";
+
 /**
  * A cool script that provides the barebones, basic functionality for a point and click game.
  * It allows you to declaratively construct your game scene and items in HTML, and add higher-level
@@ -16,9 +18,9 @@
 
 // License: MPL-2.0
 
-(function() { // anonymous self-executing function, can be ignored
 
-class Inventory { // you will not be able to create NEW instances of this class in your scripts
+
+export class Inventory { // you will not be able to create NEW instances of this class in your scripts
 
   // Setup & Scripting
   // ----------------------------------------------------------------------------------------------------
@@ -334,10 +336,10 @@ class Inventory { // you will not be able to create NEW instances of this class 
     const item = this.#getSlotContents(element);
 
     if (item) {
-      this.#disableItem(item);
+      Inventory.#disableItem(item);
     }
 
-    this.#disableSlot(element);
+    Inventory.#disableSlot(element);
     this.reconfigure(false);
   }
 
@@ -352,10 +354,10 @@ class Inventory { // you will not be able to create NEW instances of this class 
     const slot = this.getItemElementData(element).currentSlot;
 
     if (slot) {
-      this.#disableSlot(slot);
+      Inventory.#disableSlot(slot);
     }
 
-    this.#disableItem(element);
+    Inventory.#disableItem(element);
     this.reconfigure(false);
   }
 
@@ -479,7 +481,7 @@ class Inventory { // you will not be able to create NEW instances of this class 
     // crafting begins now
 
     ingredients.forEach(i => {
-      if (checkBoolAttr(i.dataset.craftingConsumable, true, true)) {
+      if (DOMUtil.checkBoolAttr(i.dataset.craftingConsumable, true, true)) {
         i.remove();
       } else {
         i.setAttribute("data-used-to-craft", true);
@@ -487,7 +489,7 @@ class Inventory { // you will not be able to create NEW instances of this class 
     });
 
     let node;
-    if (!checkBoolAttr(product.dataset.disallowMultiple, false, true)) { // clone node
+    if (!DOMUtil.checkBoolAttr(product.dataset.disallowMultiple, false, true)) { // clone node
       node = product.cloneNode(true);
 
       if (this.#config.debug) {
@@ -499,7 +501,7 @@ class Inventory { // you will not be able to create NEW instances of this class 
     }
 
     // make it a normal item instead of a crafting schematic
-    this.#convertRecipeToItem(node);
+    Inventory.#convertRecipeToItem(node);
 
     if (!this.#moveToInventory(node, slot)) {
       // slot is occupied, possibly by a non-consumable item
@@ -732,10 +734,10 @@ class Inventory { // you will not be able to create NEW instances of this class 
     const itemNumbers = this.#itemElements.map(s => s.dataset.itemNumber).filter(x => x);
 
     // Error checking
-    if (hasDuplicates([...this.#craftingElements].map(e => e.dataset.craftingRecipe))) {
+    if (ArrayUtil.hasDuplicates([...this.#craftingElements].map(e => e.dataset.craftingRecipe))) {
       throw new Error("Cannot have duplicate crafting recipes");
     }
-    if (hasDuplicates(itemNumbers)) {
+    if (ArrayUtil.hasDuplicates(itemNumbers)) {
       throw new Error("Duplicate data-item-number atttributes");
     }
     if (itemNumbers.find(s => s < 0)) {
@@ -755,7 +757,7 @@ class Inventory { // you will not be able to create NEW instances of this class 
 
     // slot numbers need to be valid for short periods of time inbetween events firing,
     // all other times, they can change, so long as they remain valid / reconfigure() is called.
-    if (hasDuplicates(OldGenerationSlotNumbers)) {
+    if (ArrayUtil.hasDuplicates(OldGenerationSlotNumbers)) {
       throw new Error("Duplicate data-slot-number atttributes");
     }
     if (OldGenerationSlotNumbers.find(s => s < 0)) {
@@ -790,7 +792,7 @@ class Inventory { // you will not be able to create NEW instances of this class 
       return;
     }
 
-    this.#addEventListener(element, "dragover", doNothingListener);
+    this.#addEventListener(element, "dragover", DOMUtil.doNothingEventListener);
 
     // if unset, allow everything
     const isItemAllowedInSlot = (item, slot) => {
@@ -809,7 +811,6 @@ class Inventory { // you will not be able to create NEW instances of this class 
       this.#evalAttribute(slot, slot.dataset.onSlotted, item);
     }
 
-    // const dropListener =
     this.#addEventListener(element, "drop", (e) => {
       e.preventDefault();
 
@@ -817,10 +818,6 @@ class Inventory { // you will not be able to create NEW instances of this class 
       const parser = new DOMParser();
       const dragElement = parser.parseFromString(e.dataTransfer.getData("text/html"), 'text/html')
         .querySelector(`[${Inventory.#ITEM_DATA_ATTR}]`);
-
-      // console.log(dragElementInstance, this.isHoldingElement(dragElementInstance))
-      // if (this.isHoldingItem(dragElement.dataset.gameItem)) {
-      // the element is being moved from another inventory slot
 
       // can sometimes be null if it is empty
       const thisSlot = this.getInventoryMap().find(e => e.slot == element);
@@ -851,14 +848,6 @@ class Inventory { // you will not be able to create NEW instances of this class 
         // attribute
         otherSlot?.appendChild(thisSlot.item);
 
-        // maybe the user was trying to craft something
-        // problem here: if user successfully crafts something with a non-consumable item,
-        // product gets used on that item.
-        // this happens on the slot with the consumable item, as it recieves a swap with an item
-        // already in it.
-
-        // FIXED: by preventing the craft drop event from propagating, but now the item's dragend
-        // is firing wrongly
         this.#useItem(dragElementInstance, thisSlot.item);
 
         executeSceneSlot(thisSlot.item, otherSlot);
@@ -867,7 +856,6 @@ class Inventory { // you will not be able to create NEW instances of this class 
       element.appendChild(dragElementInstance);
 
       executeSceneSlot(dragElementInstance, element);
-      // }
     });
   }
 
@@ -890,10 +878,7 @@ class Inventory { // you will not be able to create NEW instances of this class 
         console.assert(this.#moveToInventory(element));
 
         // how it's been positioned in the scene, not needed anymore
-        element.style.top = 'unset';
-        element.style.left = 'unset';
-        element.style.right = 'unset';
-        element.style.bottom = 'unset';
+        DOMUtil.setAbsolutePosition(element, 'unset');
 
         this.#eventSystem.dispatchEvent("pickupItem", { item: element });
 
@@ -930,7 +915,7 @@ class Inventory { // you will not be able to create NEW instances of this class 
 
         // this should not fire if it is being dropped as a result of a successful usage in a crafting
         // recipe (item would've been non-consumable)
-        if (!checkBoolAttr(element.getAttribute("data-used-to-craft"), false, true)) {
+        if (!DOMUtil.checkBoolAttr(element.getAttribute("data-used-to-craft"), false, true)) {
           this.#useItem(element, doorElement);
 
         } else {
@@ -983,7 +968,7 @@ class Inventory { // you will not be able to create NEW instances of this class 
         e.dataTransfer.setData("text/plain", ingredientElements[index].dataset.gameItem);
       });
 
-      this.#addEventListener(ingredientElements[NOT(index)],  "dragover",   doNothingListener);
+      this.#addEventListener(ingredientElements[NOT(index)],  "dragover",   DOMUtil.doNothingEventListener);
 
       this.#addEventListener(ingredientElements[NOT(index)],  "drop",       (e) => {
         e.preventDefault();
@@ -1020,7 +1005,8 @@ class Inventory { // you will not be able to create NEW instances of this class 
     doorElement.setAttribute("draggable",   false);
     doorElement.setAttribute("data-opened", false);
 
-    this.#addEventListener(doorElement, "dragover", doNothingListener);
+    // required by the html drag and drop api
+    this.#addEventListener(doorElement, "dragover", DOMUtil.doNothingEventListener);
 
     // Key config
 
@@ -1036,13 +1022,12 @@ class Inventory { // you will not be able to create NEW instances of this class 
         e.dataTransfer.setData("text/plain", k.dataset.gameItem);
       });
 
-      // const dropListener =
       this.#addEventListener(doorElement, "drop", (e) => {
         e.preventDefault();
 
         // need to check it is the current thing being dragged by the user
         if (e.dataTransfer.getData("text/plain") == doorElement.dataset.door) {
-          if (checkBoolAttr(doorElement.dataset.opened, false, true)) {
+          if (DOMUtil.checkBoolAttr(doorElement.dataset.opened, false, true)) {
 
             if (this.#config.debug) {
               console.info("Door already opened");
@@ -1050,7 +1035,7 @@ class Inventory { // you will not be able to create NEW instances of this class 
             return;
           }
 
-          if (checkBoolAttr(doorElement.dataset.eatsKey, true, true)) {
+          if (DOMUtil.checkBoolAttr(doorElement.dataset.eatsKey, true, true)) {
             k.remove(); // Delete the key item used to open the door
           }
 
@@ -1112,14 +1097,6 @@ class Inventory { // you will not be able to create NEW instances of this class 
       .map(i => this.#config.root.querySelector(`[${Inventory.#ITEM_DATA_ATTR}="${i.trim()}"]`));
   }
 
-  // turns a recipe element into an item element
-  #convertRecipeToItem(element) {
-    element.setAttribute("data-game-item", element.dataset.craftingRecipe);
-
-    element.removeAttribute("data-crafting-recipe");
-    element.removeAttribute("data-combines");
-  }
-
   #getSlotByNumber(number) {
     return this.#config.root.querySelector(`[data-slot-number='${number}']`);
   }
@@ -1175,7 +1152,9 @@ class Inventory { // you will not be able to create NEW instances of this class 
     this.#eventSystem.dispatchEvent("useItem", { item: element, withObject: on });
   }
 
-  #disableSlot(element) {
+  // should be static
+
+  static #disableSlot(element) {
     if (element.dataset.onClick) {
       element.style.cursor = 'unset';
     }
@@ -1183,13 +1162,22 @@ class Inventory { // you will not be able to create NEW instances of this class 
     element.removeAttribute("data-slot");
   }
 
-  #disableItem(element) {
+  static #disableItem(element) {
     element.removeAttribute("data-game-item");
     element.removeAttribute("data-crafting-recipe");
     element.removeAttribute("data-previous-slot");
 
     element.setAttribute("draggable", false);
   }
+
+  // turns a recipe element into an item element
+  static #convertRecipeToItem(element) {
+    element.setAttribute("data-game-item", element.dataset.craftingRecipe);
+
+    element.removeAttribute("data-crafting-recipe");
+    element.removeAttribute("data-combines");
+  }
+
 
   // Static helper methods
   // ----------------------------------------------------------------------------------------------------
@@ -1252,65 +1240,6 @@ class Inventory { // you will not be able to create NEW instances of this class 
 
 // generic helpers
 
-class EventSystem {
-  static #Event = class Event{
-    constructor(name) {
-      this.name = name;
-      this.callbacks = [];
-    }
-
-    registerCallback(callback){
-      this.callbacks.push(callback);
-    }
-  }
-
-  #events = {};
-
-  registerEvent(eventName) {
-    let event = new EventSystem.#Event(eventName);
-    this.#events[eventName] = event;
-  }
-
-  dispatchEvent(eventName, eventArgs) {
-    this.#events[eventName].callbacks.forEach(callback => callback(eventArgs));
-  };
-
-  addEventListener(eventName, callback) {
-    if (!this.#events[eventName]) {
-      throw new Error("Invalid event");
-    }
-    this.#events[eventName].registerCallback(callback);
-  };
-}
-
-function doNothingListener(e) {
-  e.preventDefault();
-}
-
-// checks if an array has duplicate elements
-function hasDuplicates(array) {
-  return (new Set(array)).size !== array.length;
-}
-
-function NOT(bit) {
-  return bit === 0 ? 1 : 0; // If 1 then 0 else 1
-}
-
-// checks a boolean string attribute on a html element, with my own nice semantics
-function checkBoolAttr(string, defaultValue, nullValue=null) {
-  if (string        === "true")   {
-    return true;                                    // data-enable-this-thing="true"
-  } else if (string === "false")  {
-    return false;                                   // data-enable-this-thing="false"
-  } else if (string === "" && nullValue !== null) {
-    return nullValue;                               // data-enable-this-thing (means true here)
-  } else if (string == null)      {
-    return defaultValue;                            // not present
-  }
-
-  throw new Error("Attribute is boolean, must be 'true' or 'false'");
-}
-
 // non-generic code
 
 function duplicateElements() {
@@ -1333,22 +1262,23 @@ function duplicateElements() {
 function createInventorySystem() {
   console.info("Loading inventory script");
 
-  let opts;
+  let opts = { }
 
-  if (document.currentScript) { // blocking loading, no defer or async on script tag, null otherwise
-    // PRELOAD
-    opts = document.currentScript.dataset;
+  // if (document.currentScript) { // blocking loading, no defer or async on script tag, null otherwise
+  //   // PRELOAD
+  //   opts = document.currentScript.dataset;
 
-    if (checkBoolAttr(opts.defaultStyle, true, true)) {
-      Inventory.initializeDefaultStyle();
-    }
+  //   if (DOMUtil.checkBoolAttr(opts.defaultStyle, true, true)) {
+  //     Inventory.initializeDefaultStyle();
+  //   }
 
-  } else {
-    // throw new Error("Script must be the first to load, and cannot be deferred or ran asynchronously");
-    console.warn(
-      "This script has been deferred or ran asynchronously, certain features will be disabled");
-  }
+  // } else {
+  //   // throw new Error("Script must be the first to load, and cannot be deferred or ran asynchronously");
+  //   console.warn(
+  //     "This script has been deferred or ran asynchronously, certain features will be disabled");
+  // }
 
+  Inventory.initializeDefaultStyle();
   duplicateElements();
 
   window.inventory = new Inventory({
@@ -1356,13 +1286,13 @@ function createInventorySystem() {
     // debug: true
   });
 
-  if (document.currentScript) {
-    // POSTLOAD
+  // if (document.currentScript) {
+  //   // POSTLOAD
 
-    if (checkBoolAttr(opts.autoUpdate, false, true)) {
-      window.inventory.enablePageChangeDetection();
-    }
-  }
+  //   if (DOMUtil.checkBoolAttr(opts.autoUpdate, false, true)) {
+  //     window.inventory.enablePageChangeDetection();
+  //   }
+  // }
 
   console.info("Inventory script loaded: window.inventory object is ready");
 }
@@ -1377,20 +1307,20 @@ if (!window) {
 }
 
 // do not load more than once, and replace the object if it already exists in a different context
-if (window.inventory) {
-  if (window.inventory.constructor?.name === Inventory.name) {
-    // this isnt working
-    console.error("Item script included more than once, ignoring...");
-    return;
+// if (window.inventory) {
+//   if (window.inventory.constructor?.name === Inventory.name) {
+//     // this isnt working
+//     console.error("Item script included more than once, ignoring...");
+//     return;
 
-  } else {
-    console.warn("Hijacking pre-existing window.inventory object!");
-  }
-}
+//   } else {
+//     console.warn("Hijacking pre-existing window.inventory object!");
+//   }
+// }
 
 createInventorySystem();
 
-})(); // End of script
+// })(); // End of script
 
 
 // ------------------------------------------------------------------------------------------------------

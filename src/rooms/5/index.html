@@ -115,14 +115,23 @@
   </div>
 
   <!-- Generic reusable logic -->
-  <script src="../../js/saveState.js"></script>
-  <script src="../../js/action-log.js"></script>
-  <script src="../../js/point-and-click.js"></script>
-  <script src="../../js/look.js"></script>
-  <script src="../../js/quests.js"></script>
+
+  <!-- completely standalone and isolated -->
+  <script src="../../js/look.mjs"       async type="module"></script>
+  <!-- non-persistent -->
+  <script src="../../js/utils.mjs"            type="module"></script>
+  <script src="../../js/point-and-click.mjs"  type="module"></script>
+  <!-- persistent -->
+  <script src="../../js/saveState.mjs"        type="module"></script>
+  <script src="../../js/action-log.mjs"       type="module"></script>
+  <script src="../../js/quests.mjs"           type="module"></script>
+  <script src="../../js/progress.mjs"         type="module"></script>
 
   <!-- Logic specific to this room -->
+
+  <!-- a list of the callback functions i use in this HTML file -->
   <script src="callbacks.js"></script>
+  <!-- event listeners and config -->
   <script src="main.js"></script>
 </body>
 </html>

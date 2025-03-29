@@ -1,5 +1,7 @@
 "use strict";
 
+/* <script src="../../js/action-log.mjs" type="module" async></script> */
+
 /**
  * Records messages in the order they are posted, like console.log
  *
@@ -19,9 +21,7 @@
  * was included before this one.
  */
 
-(function() {
-
-class ActionLog {
+export default class ActionLog {
   // message object
   static #Message = class Message {
     #message;
@@ -140,5 +140,3 @@ window.actionLog = new ActionLog(
     messageLimit: false // disable
   }
 );
-
-})();

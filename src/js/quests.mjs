@@ -1,5 +1,7 @@
 "use strict";
 
+import { EventSystem } from "./utils.mjs";
+
 /**
  * HOW TO USE:
  *
@@ -29,16 +31,15 @@
  *    data-on-complete="console.log('i have all the stuff!')">Pick up everything</h3>
  *
  * <script>
+ *    window.quests.addEventListener("complete", () => { console.log("yay!") })
+ *
  *    if (window.quests.isComplete("pickup")) {
  *      window.quests.complete("pickup");
  *    }
  * </script>
  */
 
-(function() {
-
 class QuestSystem {
-  #config = { }
 
   get elements() {
     return document.querySelectorAll("[data-quest]");
@@ -52,14 +53,8 @@ class QuestSystem {
     return [ ...this.elements ].filter(q => q.dataset.complete).map(q => q.dataset.quest);
   }
 
-  constructor(state=[], config={}) {
-    this.#config = { ...this.#config, ...config }
-
-    state.forEach(q => this.complete(q));
-  }
-
-  #questById(id) {
-    return [ ...this.elements ].find(e => e.dataset.quest == id);
+  addEventListener(name, callback) {
+    this.#eventSystem.addEventListener(name, callback);
   }
 
   complete(id) {
@@ -77,13 +72,32 @@ class QuestSystem {
       .call(this);
 
     quest.dataset.complete = true;
-    quest.style.textDecoration = "line-through";
+    this.#eventSystem.dispatchEvent("complete");
+    this.#disableQuestElement(quest);
 
     save(this.completed);
   }
 
   isComplete(id) {
     return this.completed.includes(id);
+  }
+
+  #eventSystem = new EventSystem();
+  #config = { }
+  #disableQuestElement = (element) => {
+    element.style.textDecoration = "line-through";
+  }
+
+  constructor(state=[], config={}) {
+    this.#config = { ...this.#config, ...config }
+
+    this.#eventSystem.registerEvent("complete");
+
+    state.forEach(q => this.complete(q));
+  }
+
+  #questById(id) {
+    return [ ...this.elements ].find(e => e.dataset.quest == id);
   }
 }
 
@@ -100,5 +114,3 @@ function load() {
 
 // load save here, do it via the constructor
 window.quests = new QuestSystem(load());
-
-})();
