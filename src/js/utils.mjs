@@ -97,7 +97,7 @@ export function NOT(bit) {
 
 // ------------------------------------------------------------------------------------------------------
 
-// Global exports
+// Global exports, exist even without direct inclusion of this script in the HTML
 window.DOMUtil = DOMUtil;
 window.MathUtil = MathUtil;
 window.ArrayUtil = ArrayUtil;
