@@ -1,6 +1,10 @@
 "use strict";
 
 export class DOMUtil {
+  static {
+    window.DOMUtil = DOMUtil;
+  }
+
   static doNothingEventListener(e) {
     e.preventDefault();
   }
@@ -29,6 +33,10 @@ export class DOMUtil {
 }
 
 export class MathUtil {
+  static {
+    window.MathUtil = MathUtil;
+  }
+
   static lerp(start, end, amount) {
     return start * (1.0 - amount) + end * amount;
   }
@@ -41,6 +49,10 @@ export class MathUtil {
 }
 
 export class ArrayUtil {
+  static {
+    window.ArrayUtil = ArrayUtil;
+  }
+
   // checks if an array has duplicate elements
   static hasDuplicates(array) {
     return (new Set(array)).size !== array.length;
@@ -98,6 +110,3 @@ export function NOT(bit) {
 // ------------------------------------------------------------------------------------------------------
 
 // Global exports, exist even without direct inclusion of this script in the HTML
-window.DOMUtil = DOMUtil;
-window.MathUtil = MathUtil;
-window.ArrayUtil = ArrayUtil;

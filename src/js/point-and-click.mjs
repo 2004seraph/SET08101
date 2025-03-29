@@ -1233,101 +1233,67 @@ export class Inventory { // you will not be able to create NEW instances of this
     style.appendChild(document.createTextNode(css));
     document.head.appendChild(style);
   }
-}
 
-// Everything below is also private
-// ------------------------------------------------------------------------------------------------------
+  static duplicateElements() {
+    const duplications = document.querySelectorAll("[data-duplicate-slot][data-slot]");
+    duplications.forEach(e => {
+      const amount = parseInt(e.dataset.duplicateSlot) - 1;
 
-// generic helpers
+      if (amount == NaN) {
+        throw new Error("Invalid number to duplicate with");
+      }
 
-// non-generic code
+      e.removeAttribute("data-duplicate-slot");
 
-function duplicateElements() {
-  const duplications = document.querySelectorAll("[data-duplicate-slot][data-slot]");
-  duplications.forEach(e => {
-    const amount = parseInt(e.dataset.duplicateSlot) - 1;
+      for (let i = 0; i < amount; i++) {
+        e.parentElement.appendChild(e.cloneNode());
+      }
+    });
+  }
 
-    if (amount == NaN) {
-      throw new Error("Invalid number to duplicate with");
-    }
+  static #createSystem() {
+    console.info("Loading inventory script");
 
-    e.removeAttribute("data-duplicate-slot");
+    Inventory.initializeDefaultStyle();
+    Inventory.duplicateElements();
 
-    for (let i = 0; i < amount; i++) {
-      e.parentElement.appendChild(e.cloneNode());
-    }
-  });
-}
+    window.inventory = new Inventory({
+      playerInventoryKey: "",
+      // debug: true
+    });
 
-function createInventorySystem() {
-  console.info("Loading inventory script");
-
-  let opts = { }
-
-  // if (document.currentScript) { // blocking loading, no defer or async on script tag, null otherwise
-  //   // PRELOAD
-  //   opts = document.currentScript.dataset;
-
-  //   if (DOMUtil.checkBoolAttr(opts.defaultStyle, true, true)) {
-  //     Inventory.initializeDefaultStyle();
-  //   }
-
-  // } else {
-  //   // throw new Error("Script must be the first to load, and cannot be deferred or ran asynchronously");
-  //   console.warn(
-  //     "This script has been deferred or ran asynchronously, certain features will be disabled");
-  // }
-
-  Inventory.initializeDefaultStyle();
-  duplicateElements();
-
-  window.inventory = new Inventory({
-    playerInventoryKey: opts.playerInventory ?? "",
-    // debug: true
-  });
-
-  // if (document.currentScript) {
-  //   // POSTLOAD
-
-  //   if (DOMUtil.checkBoolAttr(opts.autoUpdate, false, true)) {
-  //     window.inventory.enablePageChangeDetection();
-  //   }
-  // }
-
-  console.info("Inventory script loaded: window.inventory object is ready");
-}
+    console.info("Inventory script loaded: window.inventory object is ready");
+  }
 
 // This is where the script actually starts running code
 // ------------------------------------------------------------------------------------------------------
 
-// Attaches an instance of the class above to the global window object,
-// same object you access document from (shortcut for for window.document).
-if (!window) {
-  throw new Error("This script must be ran inside a browser context");
+  static {
+    // Attaches an instance of the class above to the global window object,
+    // same object you access document from (shortcut for for window.document).
+    if (!window) {
+      throw new Error("This script must be ran inside a browser context");
+    }
+
+    // do not load more than once, and replace the object if it already exists in a different context
+    if (window.inventory) {
+
+      if (window.inventory.constructor?.name === Inventory.name) {
+        console.error("Item script included more than once, ignoring...");
+
+      } else {
+        console.warn("Hijacking pre-existing window.inventory object!");
+        Inventory.#createSystem();
+      }
+
+    } else {
+      Inventory.#createSystem();
+    }
+  }
 }
-
-// do not load more than once, and replace the object if it already exists in a different context
-// if (window.inventory) {
-//   if (window.inventory.constructor?.name === Inventory.name) {
-//     // this isnt working
-//     console.error("Item script included more than once, ignoring...");
-//     return;
-
-//   } else {
-//     console.warn("Hijacking pre-existing window.inventory object!");
-//   }
-// }
-
-createInventorySystem();
-
-// })(); // End of script
-
 
 // ------------------------------------------------------------------------------------------------------
 // Made by Sarah Taseff
 
 // Notes to self
 // ------------------------------------------------------------------------------------------------------
-
-// better include:
-// <script type="module" src="items.js" defer></>

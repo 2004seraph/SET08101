@@ -39,6 +39,17 @@ import { EventSystem } from "./utils.mjs";
  * </script>
  */
 
+const SAVE_KEY = "quests";
+
+function save(quests) {
+  window.saveState?.set(SAVE_KEY, quests);
+}
+
+function load() {
+  // list of completed quests
+  return window.saveState?.get(SAVE_KEY) ?? [];
+}
+
 class QuestSystem {
 
   get elements() {
@@ -99,18 +110,9 @@ class QuestSystem {
   #questById(id) {
     return [ ...this.elements ].find(e => e.dataset.quest == id);
   }
+
+  static {
+    // load save here, do it via the constructor
+    window.quests = new QuestSystem(load());
+  }
 }
-
-const SAVE_KEY = "quests";
-
-function save(quests) {
-  window.saveState?.set(SAVE_KEY, quests);
-}
-
-function load() {
-  // list of completed quests
-  return window.saveState?.get(SAVE_KEY) ?? [];
-}
-
-// load save here, do it via the constructor
-window.quests = new QuestSystem(load());

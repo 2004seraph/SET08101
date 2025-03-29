@@ -21,6 +21,17 @@
  * was included before this one.
  */
 
+const SAVE_KEY = "actions";
+
+function save(actions) {
+  window.saveState?.set(SAVE_KEY, actions);
+}
+
+function load() {
+  // list of completed quests
+  return window.saveState?.get(SAVE_KEY) ?? [];
+}
+
 export default class ActionLog {
   // message object
   static #Message = class Message {
@@ -75,7 +86,8 @@ export default class ActionLog {
   constructor(state=[], config={}) {
     this.#config = { ...this.#config, ...config };
 
-    state.reverse().forEach(m => this.#push(m));
+    // sometimes reverse order?
+    state.forEach(m => this.#push(m));
   }
 
   push(message) {
@@ -120,23 +132,14 @@ export default class ActionLog {
 
     return messages;
   }
-}
 
-const SAVE_KEY = "actions";
-
-function save(actions) {
-  window.saveState?.set(SAVE_KEY, actions);
-}
-
-function load() {
-  // list of completed quests
-  return window.saveState?.get(SAVE_KEY) ?? [];
-}
-
-window.actionLog = new ActionLog(
-  load(),
-  {
-    timeOut: false,     // disable
-    messageLimit: false // disable
+  static {
+    window.actionLog = new ActionLog(
+      load(),
+      {
+        timeOut: false,     // disable
+        messageLimit: false // disable
+      }
+    );
   }
-);
+}

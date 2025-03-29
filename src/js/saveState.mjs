@@ -3,6 +3,7 @@
 import { EventSystem } from "./utils.mjs";
 
 export default class SaveState {
+
   #eventSystem = new EventSystem();
 
   // key = save file
@@ -84,6 +85,8 @@ export default class SaveState {
   static #save(key, object) {
     localStorage.setItem(SaveState.#fullyQualified(key), JSON.stringify(object));
   }
-}
 
-window.saveState = new SaveState();
+  static {
+    window.saveState = new SaveState();
+  }
+}
