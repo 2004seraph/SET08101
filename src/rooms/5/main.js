@@ -1,10 +1,10 @@
 "use strict";
 
 // setting the horizontal scroll position on page load
-document.addEventListener('DOMContentLoaded', () => {
-  const element = document.getElementById("scene-viewport")
-  element.scrollLeft = 350
-})
+document.addEventListener('DOMContentLoaded', function() {
+  const element = document.getElementById("scene-viewport");
+  element.scrollLeft = 350;
+});
 
 window.onload = function() {
   window.inventory.reconfigure(
@@ -14,7 +14,7 @@ window.onload = function() {
     }
   )
 
-  window.inventory.addEventListener("pickupItem", () => {
+  window.inventory.addEventListener("pickupItem", function() {
 
     if (window.ArrayUtil.equal(
       window.inventory.root.querySelectorAll("[data-game-item]"),
