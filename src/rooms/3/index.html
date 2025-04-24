@@ -1,0 +1,136 @@
+<!--
+index.html - Rebekka Burgi 40716597 - Group 7 - SET08101 Web Technologies
+
+This is the HTML structure of escape room 3
+-->
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Rebekka Burgi">
+
+  <title>Escape Room</title>
+
+  <link rel="stylesheet" href="css/stylesheet.css">
+
+  <script src="js/init.js" defer></script>
+  <script src="js/gameState.js" defer></script>
+  <script src="js/objects.js" defer></script>
+  <script src="js/items.js" defer></script>
+  <script src="js/vasePuzzle.js" defer></script>
+  <script src="js/slidePuzzle.js" defer></script>
+  <script src="js/tutorials.js" defer></script>
+  <script src="js/hints.js" defer></script>
+  <script src="js/main.js" defer></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+  <div id="wrapper">
+    <div id="room-nav">
+      <button class="small-button">
+        <a href="../../index.html">
+          Home
+        </a>
+      </button>
+
+      <div id="timer">
+        <p>00:00</p>
+      </div>
+
+      <button class="big-button" id="pause-button">
+        <p>Pause</p>
+      </button>
+
+      <button class="small-button" id="hint-button">
+        <p>Hint</p>
+      </button>
+
+      <button class="small-button" id="tutorial-button">
+        <p>Tutorial</p>
+      </button>
+    </div>
+
+    <div id="room-wrapper">
+      <button class="side-button">
+        <p> &lt </p>
+      </button>
+
+      <div id="game-container">
+
+        <div id="item-info-window">
+          <button class="close">x</button>
+          <div id="item-pic-container">
+            <img id="item-pic">
+          </div>
+          <div id="item-info-container">
+            <p id="item-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, consequuntur placeat
+              necessitatibus
+              voluptates deleniti minima libero explicabo eos dignissimos, doloremque nostrum, dolores blanditiis odio
+              possimus.</p>
+          </div>
+        </div>
+
+        <div id="mini-game">
+          <button class="close">x</button>
+        </div>
+
+      </div>
+
+      <button class="side-button">
+        <a href="../../rooms/5/index.html">
+          &gt
+        </a>
+      </button>
+    </div>
+
+
+    <div id="inventory">
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+    </div>
+
+    <footer>
+      <p>Graphics made with ImageFX</p>
+    </footer>
+  </div>
+</body>
+
+</html>

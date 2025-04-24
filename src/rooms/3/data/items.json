@@ -1,0 +1,82 @@
+[
+    {
+        "name": "Box",
+        "width": 54,
+        "height": 51,
+        "img": "assets/images/items/box.png",
+        "top": 308,
+        "left": 100,
+        "layer": 7,
+        "info": "It's locked... Maybe there's a key for it around here somewhere!"
+    },
+    {
+        "name": "Golden Key",
+        "width": 42.3,
+        "height": 26.8,
+        "img": "assets/images/items/golden-key.png",
+        "top": null,
+        "left": null,
+        "layer": null,
+        "info": "I wonder what lock this key belongs to..."
+    },
+    {
+        "name": "Gray Key",
+        "width": 48.24,
+        "height": 18.68,
+        "img": "assets/images/items/gray-key2.png",
+        "top": null,
+        "left": null,
+        "layer": null,
+        "info": "Here we go! Could this be the key to freedom?"
+    },
+    {
+        "name": "Another Gray Key",
+        "width": 57.35,
+        "height": 19.85,
+        "img": "assets/images/items/gray-key1.png",
+        "top": null,
+        "left": null,
+        "layer": null,
+        "info": "Another key!! Maybe this is finally the one for the door!"
+    },
+    {
+        "name": "Blue Tin",
+        "width": 50,
+        "height": 50,
+        "img": "assets/images/items/tin-item.png",
+        "top": null,
+        "left": null,
+        "layer": null,
+        "info": "An old blue tin. There is definitely something inside, but the lid is a bit stuck..."
+    },
+    {
+        "name": "Interesting Book",
+        "width": 79.9,
+        "height": 68.2,
+        "img": "assets/images/items/book6.png",
+        "top": null,
+        "left": null,
+        "layer": null,
+        "info": "This book looks interesting... An excerpt reads:<br>\"The five stand tall, stand small, stand wide.<br>One mouth was fed; the others sighed.<br>Some shiny, some dull.<br>Some broken, some whole.<br>The first, then the third, and the fifth to be pet;<br>Then the second, and the fourth shall reveal what is kept.\"<br>Huh... Seems to be a riddle of some kind..."
+    },
+    {
+        "name": "Note",
+        "width": 50,
+        "height": 50,
+        "img": "assets/images/items/note.png",
+        "top": null,
+        "left": null,
+        "layer": null,
+        "info": "Another riddle... \"Where the sun does not shine, and the heat does not reign; a key lies hidden, plain as day.\" Whatever that means..."
+    },
+    {
+        "name": "Another Book",
+        "width": 88.3,
+        "height": 63.2,
+        "img": "assets/images/items/book3.png",
+        "top": null,
+        "left": null,
+        "layer": null,
+        "info": "Great... Another book... Huh, someone scribbled something on the first page: \"Knowledge is freedom\""
+    }
+]
