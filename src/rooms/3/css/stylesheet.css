@@ -1,0 +1,348 @@
+/**
+ * stylesheet.css - Rebekka Burgi 40716597 - Group 7 - SET08101 Web Technologies
+ * 
+ * This stylesheet contains all styling for escape room 3
+ */
+
+
+
+/* GENERAL */
+
+:root {
+    --darkest: 0, 0, 0;
+
+    --dark-brown: 61, 32, 10;
+    --medium-brown: 100, 53, 17;
+    --light-brown: 153, 82, 28;
+
+    --dark-beige: 192, 132, 86;
+    --medium-beige: 237, 179, 135;
+    --light-beige: 243, 217, 197;
+
+    --lightest: 255, 255, 255;
+}
+
+
+body {
+    color: rgb(var(--light-beige));
+    background-color: rgb(var(--darkest));
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-attachment: fixed;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#wrapper {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    width: inherit;
+    height: inherit;
+    display: inherit;
+    justify-content: inherit;
+    align-items: inherit;
+}
+
+
+
+button {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    background-color: rgb(var(--medium-brown));
+    border-radius: 10px;
+    text-align: center;
+}
+
+button:hover {
+    background-color: rgb(var(--light-brown));
+}
+
+
+.close {
+    width: 20px;
+    height: 20px;
+    border-radius: 0;
+    margin-left: auto;
+    background-color: transparent;
+}
+
+footer {
+    background-color: rgb(var(--dark-brown));
+    height: 25px;
+    line-height: 25px;
+    display: block;
+    text-align: center;
+    justify-content: center;
+}
+
+
+
+/* TOP OF THE PAGE */
+
+#room-nav {
+    width: 85%;
+    height: 100px;
+    margin: auto;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#timer {
+    display: flex;
+    text-align: center;
+    font-size: large;
+    text-decoration: none;
+    width: 68px;
+    color: rgb(var(--dark-brown));
+    background-color: rgb(var(--light-beige));
+    margin: auto;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgb(var(--medium-brown));
+}
+
+.small-button {
+    font-size: large;
+    width: 70px;
+    margin: auto;
+}
+
+.big-button {
+    font-size: x-large;
+    width: 100px;
+    margin: 0 0px;
+    height: 75px;
+}
+
+
+/* MIDDLE OF THE PAGE */
+#room-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.side-button {
+    width: 45px;
+    height: 75px;
+    font-size: x-large;
+    text-align: center;
+    margin: auto;
+}
+
+/* GAME WINDOW */
+#game-container {
+    width: 640px;
+    height: 360px;
+    background-image: url("../assets/images/background.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    position: relative
+}
+
+.object {
+    position: absolute;
+    transform: none;
+    transition: none;
+}
+
+.object img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    object-position: center;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+}
+
+
+/* INVENTORY */
+#inventory {
+    width: 650px;
+    height: 80px;
+    margin: auto;
+    border-radius: 10px;
+    background-color: rgb(var(--dark-beige));
+    display: flex;
+    justify-content: center;
+    padding: 0 5px;
+    align-items: center;
+}
+
+.slot {
+    width: 55px;
+    aspect-ratio: 1/1;
+    margin: auto;
+    background-color: rgb(var(--dark-brown));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slot .item {
+    position: absolute;
+    transform: none;
+    transition: none;
+    box-sizing: "border-box";
+    position: static;
+}
+
+/* POP-UPS */
+
+.pop-up {
+    background-color: rgba(var(--light-beige), 0.8);
+    border: rgb(var(--dark-brown)) 1px solid;
+    position: absolute;
+    z-index: 900;
+    visibility: hidden;
+    color: rgb(var(--dark-brown));
+}
+
+/* HINTS */
+
+#hint-window {
+    width: 300px;
+    height: 150px;
+    left: 170px;
+    top: 105px;
+}
+
+#hint-text {
+    width: 90%;
+    height: 70%;
+    margin: auto;
+}
+
+#switch {
+    width: 20px;
+    height: 20px;
+    border-radius: 0;
+    margin: auto;
+    background-color: transparent;
+    visibility: hidden;
+}
+
+/* TUTORIALS */
+
+#tutorial-window {
+    width: 500px;
+    height: 250px;
+    left: 70px;
+    top: 55px;
+    z-index: 1100;
+}
+
+#tutorial-text {
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    overflow: scroll;
+}
+
+
+/* ITEM INFO */
+
+#item-info-window {
+    width: 180px;
+    height: 350px;
+    background-color: rgba(var(--light-beige), 0.8);
+    border: rgb(var(--dark-brown)) 1px solid;
+    left: 5px;
+    top: 5px;
+    position: absolute;
+    z-index: 900;
+    visibility: hidden;
+    color: rgb(var(--dark-brown));
+}
+
+#item-pic-container {
+    width: 140px;
+    height: 140px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+#item-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+#item-info-container {
+    width: 160px;
+    height: 160px;
+    margin: auto;
+    overflow: scroll;
+}
+
+#item-info {
+    font-size: medium;
+}
+
+/* MINI GAME */
+
+#mini-game {
+    width: 440px;
+    height: 350px;
+    background-color: rgba(var(--light-beige), 0.8);
+    border: rgb(var(--dark-brown)) 1px solid;
+    right: 5px;
+    top: 5px;
+    position: absolute;
+    z-index: 900;
+    visibility: hidden;
+    color: rgb(var(--dark-brown));
+}
+
+#mini-game div {
+    width: 400px;
+    height: 300px;
+    margin: 10px 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+/* WELCOME & PAUSE WALL */
+
+.wall {
+    position: absolute;
+    background-color: rgb(var(--light-beige));
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(var(--dark-brown));
+}
+
+#welcome {
+    position: absolute;
+    z-index: 1100;
+    width: 500px;
+    height: 120px;
+    left: 70px;
+    top: 305px;
+    visibility: visible;
+    color: rgb(var(--dark-brown));
+    text-align: center;
+    font-size: x-large;
+}

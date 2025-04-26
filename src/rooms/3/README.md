@@ -1,15 +1,33 @@
-# A working room
+# Escape Room 3
 
-See the files in the `/js` folder for more information on each of the specific systems.
+\- Rebekka Burgi 40716597 - Group 7 - SET08101 Web Technologies -
 
-There is a template version of this room's `index.html` in the `/rooms` directory (above this one).
+This page is my contribution to our Escape Room group project. It is a fully functioning escape room, with riddles, a click-order puzzle and a tile-sliding mini-game.
 
-Play it here on our pages deployment: [2004seraph.github.io/SET08101/rooms/5/](https://2004seraph.github.io/SET08101/rooms/5/)
+## File Structure
 
-## Structure
+- `index.html` – The main HTML file for this page, which is linked from the project's landing page located in the src folder
+- `js/` – Contains all JavaScript files used for the game logic and interface
+- `css/` – Contains the stylesheet
+- `data/` – Contains JSON data files for objects and items
+- `assets/images/` – Contains all images used in this page, which were all generated using **ImageFX**
 
-- `assets/`         All the pictures, sounds, stuff specific to this room
-- `callbacks.js`    Just where I put all my functions that I use for callbacks in the HTML game attributes, a purely optional separation from main.js. See `index.html` to see where they get used.
-- `main.js`         Where I write all the miscillaneous immediate code, like where I add some event listeners to the inventory, change some of its settings, etc.
-- `style.css`       Styling specific to this room, like the door, you'll notice I `@import` game.css here (important)
-- `index.html`      Where the actual scene, and all the items in it, are defined and layed out.
+## Features
+
+- Loading logic to ensure all images are loaded before the game can start
+- Point-and-click pick-up logic for items
+- Item inventory including pop up window for more item information
+- Drag-and-drop logic to remove and place items from the inventory
+- Interactions between items
+- A timer, with pause and play logic
+- Text tutorials for the different game mechanics
+- Hints to support the player
+- Click-order puzzle which is integrated into the room
+- Tile-sliding mini-game in a pop-up window
+
+## NOTES
+
+- The drag-and-drop logic can be a little temperamental on smaller items (especially keys), so when picking them up from the inventory it often works better to click just below the graphic itself.
+- If the cursor "loses" an item mid-drag and it starts moving again when hovered over, simply click it to return it to the inventory or, if you want to continue dragging it, press down again, move, and let go, as with the normal movement mechanic.
+- During the mini-game, resizing the window, scrolling or opening dev tools can cause the tiles to shift in a way they are not meant to, so ideally keep the viewport size consistent while playing for everything to work as intended.
+- The page has not been tested on mobile devices yet.

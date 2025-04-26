@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Point and Click - Signal Room</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <nav>
+      <a>&lt;&lt;</a>
+      <a href="../../">Home</a>
+      <a>&gt;&gt;</a>
+    </nav>
+
+    <div class="crt-screen action-log" id="log">
+      <p>Fix the signal tower!</p>
+    </div>
+
+    <main>
+      <div class="crt-screen" id="quests">
+        <hr>
+        <p style="padding-left:4px;font-size:0.6em;background-color:rgb(195,0,255)">Go OS 3, Copyright (c) Leonidas Inc.</p>
+        <br>
+        <p style="font-size:0.6em;">Booting Quest shell...</p>
+        <p>===</p>
+
+        <h2>Quests</h2>
+        <div id="quest-list">
+          <h3 data-quest="pickup" data-on-complete="console.log('Collected all dials')" title="Collector">Collect every signal dial</h3>
+          <h3 data-quest="alignSignal" title="Frequency Found">Align the correct signal</h3>
+        </div>
+        <hr>
+      </div>
+
+      <div id="playArea">
+        <div class="gimbalLook" id="scene-viewport">
+
+          <div id="crafting">
+            <!-- No crafting needed in this room -->
+          </div>
+
+          <div class="crt-screen" id="map">
+            <img class="item" src="assets/dial1.png" style="top:200px;left:150px;"
+              data-game-item="signalDial"
+              data-use="Room.useItem(this, withObject)"
+              data-on-pickup="window.actionLog.push('Picked up Dial 1')"/>
+
+            <img class="item" src="assets/dial2.png" style="top:260px;left:320px;"
+              data-game-item="signalDial"
+              data-use="Room.useItem(this, withObject)"
+              data-on-pickup="window.actionLog.push('Picked up Dial 2')"/>
+
+            <img class="item" src="assets/dial3.png" style="top:220px;left:580px;"
+              data-game-item="signalDial"
+              data-use="Room.useItem(this, withObject)"
+              data-on-pickup="window.actionLog.push('Picked up Dial 3')"/>
+          </div>
+        </div>
+
+        <div id="interactions">
+          <div class="signalConsole" id="signalConsole" style="top:250px;left:400px;"
+               data-slot="signalConsole"
+               data-callback="Room.onlyDials(this, withObject)"
+               data-on-click="Room.inspectConsole()"
+               data-on-slotted="Room.dialInserted(this, withObject)"
+               data-duplicate-slot="3">
+          </div>
+
+          <div class="signalTower locked" id="tower" style="top:150px;left:750px;"
+               data-locked="alignSignal"
+               data-on-click="Room.unlockTower()">
+          </div>
+        </div>
+
+        <div class="crt-screen" id="hotbar">
+          <div class="inventory-slot" data-slot data-duplicate-slot="5"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Core logic -->
+  <script src="../../js/saveState.js"></script>
+  <script src="../../js/action-log.js"></script>
+  <script src="../../js/point-and-click.js"></script>
+  <script src="../../js/look.js"></script>
+  <script src="../../js/quests.js"></script>
+
+  <!-- Room-specific logic -->
+  <script src="room.js" defer></script>
+  <script src="main.js" defer></script>
+</body>
+</html>

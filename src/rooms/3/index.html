@@ -1,134 +1,136 @@
+<!--
+index.html - Rebekka Burgi 40716597 - Group 7 - SET08101 Web Technologies
+
+This is the HTML structure of escape room 3
+-->
+
+
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Point and click</title>
+  <meta name="author" content="Rebekka Burgi">
 
-  <link rel="stylesheet" href="room.css">
+  <title>Escape Room</title>
+
+  <link rel="stylesheet" href="css/stylesheet.css">
+
+  <script src="js/init.js" defer></script>
+  <script src="js/gameState.js" defer></script>
+  <script src="js/objects.js" defer></script>
+  <script src="js/items.js" defer></script>
+  <script src="js/vasePuzzle.js" defer></script>
+  <script src="js/slidePuzzle.js" defer></script>
+  <script src="js/tutorials.js" defer></script>
+  <script src="js/hints.js" defer></script>
+  <script src="js/main.js" defer></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
-  <div id="app">
+  <div id="wrapper">
+    <div id="room-nav">
+      <button class="small-button">
+        <a href="../../index.html">
+          Home
+        </a>
+      </button>
 
-    <nav>
-      <a> &lt;&lt; </a>
-      <a href="../../">Home</a>
-      <a> &gt;&gt; </a>
-    </nav>
+      <div id="timer">
+        <p>00:00</p>
+      </div>
 
-    <div class="crt-screen action-log" id="log">
-      <p>Up here is your action log, click around!</p>
+      <button class="big-button" id="pause-button">
+        <p>Pause</p>
+      </button>
+
+      <button class="small-button" id="hint-button">
+        <p>Hint</p>
+      </button>
+
+      <button class="small-button" id="tutorial-button">
+        <p>Tutorial</p>
+      </button>
     </div>
 
-    <main>
-      <div class="crt-screen" id="quests">
-        <hr>
+    <div id="room-wrapper">
+      <button class="side-button">
+        <p> &lt </p>
+      </button>
 
-        <!-- Vibes -->
-        <p style="padding-left:4px;font-size: 0.6em;background-color: rgb(195, 0, 255)">Go OS 3, Copyright (c) Leonidas Inc.</p>
-        <br>
-        <p style="font-size: 0.6em;">Booting Quest shell...</p>
-        <p>===</p>
+      <div id="game-container">
 
-        <h2>Quests</h2>
-
-          <!-- define the quests here -->
-        <div id="quest-list">
-          <h3 data-quest="throwAway" title="You know what">Throw it away</h3>
-          <h3 data-quest="pickup" data-on-complete="console.log('had all the stuff')" title="Gotta be prepared">Pick up everything</h3>
-        </div>
-
-        <hr>
-      </div>
-
-      <div id="playArea">
-        <div class="gimbalLook" id="scene-viewport">
-
-          <!-- define the crafting recipes here -->
-          <div id="crafting">
-            <img class="item" src="assets/key.png"
-              data-crafting-recipe="key" data-combines="lockbox, screwdriver" data-disallow-multiple="true"
-              data-use="Room.useItem(this, withObject)"
-              data-on-pickup="window.actionLog.push('ooh a key')">
+        <div id="item-info-window">
+          <button class="close">x</button>
+          <div id="item-pic-container">
+            <img id="item-pic">
           </div>
-
-          <!-- build the whole map here -->
-          <div class="crt-screen" id="map">
-            <img class="item switch" src="assets/switch.png" style="top: 280px; left: 500px;"
-              data-game-item="switch"
-              data-use="Room.useItem(this, withObject)">
-
-            <img class="item" src="assets/screwdriver.png" style="top: 280px; left: 410px;"
-              data-game-item="screwdriver"
-              data-crafting-consumable="false"
-              data-use="Room.useItem(this, withObject)">
-
-            <img class="item" src="assets/box.png" style="top: 330px; left: 410px;"
-              data-game-item="lockbox"
-              data-use="Room.useItem(this, withObject)">
-
-            <img class="item switch" src="assets/switch.png" style="top: 260px; left: 695px;"
-              data-game-item="switch"
-              data-use="Room.useItem(this, withObject)">
-
-            <img class="item switch" src="assets/switch.png" style="top: 265px; left: 695px;"
-              data-game-item="switch"
-              data-use="Room.useItem(this, withObject)">
-
-            <img class="item switch" src="assets/switch.png" style="top: 260px; left: 690px;"
-              data-game-item="switch"
-              data-use="Room.useItem(this, withObject)">
-
-            <div id="interactions">
-              <div class="door shut" id="lockedDoor" style="top: 250px; left: 700px;"
-                data-door="key" data-eats-key="true"
-                data-on-click="window.actionLog.push('a locked wardrobe')"
-                data-on-open="Room.openRedDoor(this)">
-
-                <div class="doorHandle"></div>
-              </div>
-
-              <div id="switchboard" style="top: 0px; left: 400px;">
-                <h2>Switchboard</h2>
-                <div>
-                  <div class="slot switchboardSlot"
-                    data-slot="switchboard"
-                    data-callback="return Room.itemIsSwitch(this, withObject)"
-                    data-on-click="Room.clickedSwitchSlot()"
-                    data-on-slotted="Room.switchConnected(this, withObject)"
-                    data-duplicate-slot="4">
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div id="item-info-container">
+            <p id="item-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, consequuntur placeat
+              necessitatibus
+              voluptates deleniti minima libero explicabo eos dignissimos, doloremque nostrum, dolores blanditiis odio
+              possimus.</p>
           </div>
         </div>
 
-        <!-- Inventory slots -->
-        <div class="crt-screen" id="hotbar">
-          <div class="inventory-slot" data-slot data-duplicate-slot="5"></div>
+        <div id="mini-game">
+          <button class="close">x</button>
         </div>
 
       </div>
-    </main>
 
+      <button class="side-button">
+        <a href="../../rooms/5/index.html">
+          &gt
+        </a>
+      </button>
+    </div>
+
+
+    <div id="inventory">
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+      <div class="slot">
+
+      </div>
+    </div>
+
+    <footer>
+      <p>Graphics made with ImageFX</p>
+    </footer>
   </div>
-
-  <!-- Generic reusable logic -->
-
-  <!-- completely standalone and isolated -->
-  <script src="../../js/look.mjs"       async type="module"></script>
-  <!-- non-persistent -->
-  <script src="../../js/point-and-click.mjs"  type="module"></script>
-  <!-- persistent -->
-  <script src="../../js/storage.mjs"          type="module"></script>
-  <script src="../../js/action-log.mjs"       type="module"></script>
-  <script src="../../js/quests.mjs"           type="module"></script>
-  <script src="../../js/game-state.mjs"       type="module"></script>
-
-  <!-- Logic specific to this room -->
-
-  <!-- a list of the callback functions i use in this HTML file -->
-  <script src="room.js" defer></script>
 </body>
+
 </html>
