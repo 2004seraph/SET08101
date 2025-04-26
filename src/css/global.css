@@ -6,7 +6,8 @@
 @import url("global/links.css");
 @import url("global/view-transition.css");
 
-html, body {
+html,
+body {
   /* width: 100%; */
   height: 100%;
   margin: 0;
@@ -26,4 +27,42 @@ body {
   color: var(--text-color);
 
   font-family: 'Courier New', Courier, monospace;
+}
+
+
+/* nav stuff */
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 80%;
+  height: 450px;
+  overflow: scroll;
+}
+
+.nav-tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 400px;
+  margin: 20px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.nav-tile:hover {
+  transform: scale(1.1);
+}
+
+.nav-tile a {
+  width: 100%;
+  height: 100%;
+  display: inherit;
+  justify-content: inherit;
+  padding: 30px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
 }
