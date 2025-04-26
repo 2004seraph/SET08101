@@ -59,7 +59,7 @@
               data-on-pickup="window.actionLog.push('Picked up Dial 3')"/>
           </div>
         </div>
-
+<!--Move the signal console and the signal tower locked into the map class to show it properly on the screen-->
         <div id="interactions">
           <div class="signalConsole" id="signalConsole" style="top:250px;left:400px;"
                data-slot="signalConsole"
@@ -82,12 +82,14 @@
     </main>
   </div>
 
-  <!-- Core logic -->
-  <script src="../../js/saveState.js"></script>
-  <script src="../../js/action-log.js"></script>
-  <script src="../../js/point-and-click.js"></script>
-  <script src="../../js/look.js"></script>
-  <script src="../../js/quests.js"></script>
+  <script src="../../js/look.mjs"       async type="module"></script>
+  <!-- non-persistent -->
+  <script src="../../js/point-and-click.mjs"  type="module"></script>
+  <!-- persistent -->
+  <script src="../../js/saveState.mjs"        type="module"></script>
+  <script src="../../js/action-log.mjs"       type="module"></script>
+  <script src="../../js/quests.mjs"           type="module"></script>
+  <script src="../../js/progress.mjs"         type="module"></script>
 
   <!-- Room-specific logic -->
   <script src="room.js" defer></script>
