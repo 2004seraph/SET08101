@@ -22,17 +22,8 @@
  */
 
 const SAVE_KEY = "actions";
-
-function save(actions) {
-  window.saveState?.set(SAVE_KEY, actions);
-}
-
-function load() {
-  // list of completed quests
-  return window.saveState?.get(SAVE_KEY) ?? [];
-}
-
 export default class ActionLog {
+
   // message object
   static #Message = class Message {
     #message;
@@ -142,4 +133,13 @@ export default class ActionLog {
       }
     );
   }
+}
+
+function save(actions) {
+  window.gameStorage?.set(SAVE_KEY, actions);
+}
+
+function load() {
+  // list of completed quests
+  return window.gameStorage?.get(SAVE_KEY) ?? [];
 }

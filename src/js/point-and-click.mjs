@@ -20,7 +20,7 @@ import { EventSystem, ArrayUtil, DOMUtil, NOT } from "./utils.mjs";
 
 
 
-export class Inventory { // you will not be able to create NEW instances of this class in your scripts
+export class InventoryManager { // you will not be able to create NEW instances of this class in your scripts
 
   // Setup & Scripting
   // ----------------------------------------------------------------------------------------------------
@@ -259,7 +259,7 @@ export class Inventory { // you will not be able to create NEW instances of this
       element: itemElement,
 
       // null if not craftable
-      recipe: (Inventory.isValidCraftingRecipe(itemElement)) ?
+      recipe: (InventoryManager.isValidCraftingRecipe(itemElement)) ?
         this.#getIngredientElements(itemElement).map(ingredient => ingredient.dataset.gameItem) : null,
 
       usedInCraftingRecipes: this.#getAllCraftableElements()
@@ -298,7 +298,7 @@ export class Inventory { // you will not be able to create NEW instances of this
 
     // get the item inside a slot, it MUST be a direct child
     const getChild = (s) => {
-      const children = s.querySelectorAll(`:scope > [${Inventory.#ITEM_DATA_ATTR}]`);
+      const children = s.querySelectorAll(`:scope > [${InventoryManager.#ITEM_DATA_ATTR}]`);
 
       if (children.length > 1 && this.#config.debug) {
         throw new Error("Cannot parent multiple items to one slot");
@@ -336,10 +336,10 @@ export class Inventory { // you will not be able to create NEW instances of this
     const item = this.#getSlotContents(element);
 
     if (item) {
-      Inventory.#disableItem(item);
+      InventoryManager.#disableItem(item);
     }
 
-    Inventory.#disableSlot(element);
+    InventoryManager.#disableSlot(element);
     this.reconfigure(false);
   }
 
@@ -354,10 +354,10 @@ export class Inventory { // you will not be able to create NEW instances of this
     const slot = this.getItemElementData(element).currentSlot;
 
     if (slot) {
-      Inventory.#disableSlot(slot);
+      InventoryManager.#disableSlot(slot);
     }
 
-    Inventory.#disableItem(element);
+    InventoryManager.#disableItem(element);
     this.reconfigure(false);
   }
 
@@ -386,7 +386,7 @@ export class Inventory { // you will not be able to create NEW instances of this
 
   // adds a valid item element to the player's inventory, returns true if successful, false if not
   addItemElementToInventory(element) {
-    if (!Inventory.isValidItem(element)) {
+    if (!InventoryManager.isValidItem(element)) {
 
       if (this.#config.debug) {
         throw new Error(
@@ -437,11 +437,11 @@ export class Inventory { // you will not be able to create NEW instances of this
     }
 
     // validity
-    if (!product || !Inventory.isValidCraftingRecipe(product)) {
+    if (!product || !InventoryManager.isValidCraftingRecipe(product)) {
       throw new Error(
         `${product} is not a valid crafting recipe, it may have data-disallow-multiple set to "true"`);
     }
-    if (ingredients.filter(i => !Inventory.isValidItem(i)).length != 0) {
+    if (ingredients.filter(i => !InventoryManager.isValidItem(i)).length != 0) {
       throw new Error(`${i} is not a valid item to craft with`);
     }
 
@@ -501,7 +501,7 @@ export class Inventory { // you will not be able to create NEW instances of this
     }
 
     // make it a normal item instead of a crafting schematic
-    Inventory.#convertRecipeToItem(node);
+    InventoryManager.#convertRecipeToItem(node);
 
     if (!this.#moveToInventory(node, slot)) {
       // slot is occupied, possibly by a non-consumable item
@@ -522,7 +522,7 @@ export class Inventory { // you will not be able to create NEW instances of this
 
   // same as above but for new inventory slots (if you expand the player's carrying capacity)
   registerNewSlotElement(element) {
-    if (Inventory.isValidSlot(element)) {
+    if (InventoryManager.isValidSlot(element)) {
       this.#setupInventory();
 
     } else {
@@ -586,7 +586,7 @@ export class Inventory { // you will not be able to create NEW instances of this
 
     // update when the DOM changes
     function mutationListener() {
-      Inventory.#OBSERVER.observe(this.#config.root, { childList: true, subtree: true });
+      InventoryManager.#OBSERVER.observe(this.#config.root, { childList: true, subtree: true });
     }
     window.addEventListener("DOMContentLoaded", mutationListener);
   }
@@ -720,16 +720,16 @@ export class Inventory { // you will not be able to create NEW instances of this
 
   #setupScene() {
     // dependant upon items being configured
-    this.#doorElements = [...this.#config.root.querySelectorAll(`${Inventory.#DOOR_ELEMENT_SELECTOR}`)];
+    this.#doorElements = [...this.#config.root.querySelectorAll(`${InventoryManager.#DOOR_ELEMENT_SELECTOR}`)];
     this.#doorElements.forEach((e) => this.#setupDoor(e));
   }
 
   #setupItems() {
     this.#craftingElements = this.#config.root.querySelectorAll(
-      `${Inventory.#CRAFT_DATA_SELECTOR}:not(${Inventory.#ITEM_DATA_ATTR})`);
+      `${InventoryManager.#CRAFT_DATA_SELECTOR}:not(${InventoryManager.#ITEM_DATA_ATTR})`);
 
     this.#itemElements = [...this.#config.root.querySelectorAll(
-      `[${Inventory.#ITEM_DATA_ATTR}]:not(${Inventory.#CRAFT_DATA_SELECTOR})`)];
+      `[${InventoryManager.#ITEM_DATA_ATTR}]:not(${InventoryManager.#CRAFT_DATA_SELECTOR})`)];
 
     const itemNumbers = this.#itemElements.map(s => s.dataset.itemNumber).filter(x => x);
 
@@ -777,7 +777,7 @@ export class Inventory { // you will not be able to create NEW instances of this
   // ----------------------------------------------------------------------------------------------------
 
   #setupSlot(element, slotNumbers) {
-    Inventory.#assignEntityNumber(element, "data-slot-number", slotNumbers);
+    InventoryManager.#assignEntityNumber(element, "data-slot-number", slotNumbers);
 
     if (element.dataset.onClick) {
       this.#addEventListener(element, "click", () => {
@@ -817,7 +817,7 @@ export class Inventory { // you will not be able to create NEW instances of this
       // ensure it is both a valid item and within the inventory
       const parser = new DOMParser();
       const dragElement = parser.parseFromString(e.dataTransfer.getData("text/html"), 'text/html')
-        .querySelector(`[${Inventory.#ITEM_DATA_ATTR}]`);
+        .querySelector(`[${InventoryManager.#ITEM_DATA_ATTR}]`);
 
       // can sometimes be null if it is empty
       const thisSlot = this.getInventoryMap().find(e => e.slot == element);
@@ -862,7 +862,7 @@ export class Inventory { // you will not be able to create NEW instances of this
   // ----------------------------------------------------------------------------------------------------
 
   #setupItem(element, itemNumbers) {
-    Inventory.#assignEntityNumber(element, "data-item-number", itemNumbers);
+    InventoryManager.#assignEntityNumber(element, "data-item-number", itemNumbers);
 
     if (!this.#isHoldingElement(element)) {
       element.setAttribute("draggable", false);
@@ -911,7 +911,7 @@ export class Inventory { // you will not be able to create NEW instances of this
         // find out if the dropped it over a door
         // could be buggy depending on window offset
         const elementsBelowMouse = document.elementsFromPoint(e.clientX, e.clientY);
-        const doorElement = elementsBelowMouse.find(d => Inventory.isValidDoor(d));
+        const doorElement = elementsBelowMouse.find(d => InventoryManager.isValidDoor(d));
 
         // this should not fire if it is being dropped as a result of a successful usage in a crafting
         // recipe (item would've been non-consumable)
@@ -936,7 +936,7 @@ export class Inventory { // you will not be able to create NEW instances of this
 
   // sets up drag and drop event listeners on items that are part of a crafting recipe
   #setupDualCraftingRecipe(product) {
-    if (!Inventory.isValidCraftingRecipe(product)) {
+    if (!InventoryManager.isValidCraftingRecipe(product)) {
       throw new Error("Crafting recipe must have a data-crafting-recipe attribute");
     }
 
@@ -1013,7 +1013,7 @@ export class Inventory { // you will not be able to create NEW instances of this
     /// dont give the event listener to recipes ->
     // it will be given when the system refreshes after crafting
     const keyElements = this.#config.root.querySelectorAll(
-      `[data-game-item="${doorElement.dataset.door}"]:not(${Inventory.#CRAFT_DATA_SELECTOR})`);
+      `[data-game-item="${doorElement.dataset.door}"]:not(${InventoryManager.#CRAFT_DATA_SELECTOR})`);
 
     keyElements.forEach(k => {
       // key is only draggable to the door after it is picked up (inventory)
@@ -1053,7 +1053,7 @@ export class Inventory { // you will not be able to create NEW instances of this
   // ----------------------------------------------------------------------------------------------------
 
   #moveToInventory(itemElement, slot=null) {
-    if (!Inventory.isValidItem(itemElement) && this.#config.debug) {
+    if (!InventoryManager.isValidItem(itemElement) && this.#config.debug) {
       throw new Error("Invalid item cannot be added to inventory");
     }
 
@@ -1094,7 +1094,7 @@ export class Inventory { // you will not be able to create NEW instances of this
   #getIngredientElements(product) {
     return product.dataset.combines
       .split(",")
-      .map(i => this.#config.root.querySelector(`[${Inventory.#ITEM_DATA_ATTR}="${i.trim()}"]`));
+      .map(i => this.#config.root.querySelector(`[${InventoryManager.#ITEM_DATA_ATTR}="${i.trim()}"]`));
   }
 
   #getSlotByNumber(number) {
@@ -1227,6 +1227,9 @@ export class Inventory { // you will not be able to create NEW instances of this
       }
     `;
 
+    // Better method:
+    // https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet/insertRule
+
     // create a style tag and attach it to the document head with the above rules
     const style = document.createElement('style');
 
@@ -1254,10 +1257,10 @@ export class Inventory { // you will not be able to create NEW instances of this
   static #createSystem() {
     console.info("Loading inventory script");
 
-    Inventory.initializeDefaultStyle();
-    Inventory.duplicateElements();
+    InventoryManager.initializeDefaultStyle();
+    InventoryManager.duplicateElements();
 
-    window.inventory = new Inventory({
+    window.inventory = new InventoryManager({
       playerInventoryKey: "",
       // debug: true
     });
@@ -1278,17 +1281,20 @@ export class Inventory { // you will not be able to create NEW instances of this
     // do not load more than once, and replace the object if it already exists in a different context
     if (window.inventory) {
 
-      if (window.inventory.constructor?.name === Inventory.name) {
+      if (window.inventory.constructor?.name === InventoryManager.name) {
         console.error("Item script included more than once, ignoring...");
 
       } else {
         console.warn("Hijacking pre-existing window.inventory object!");
-        Inventory.#createSystem();
+        InventoryManager.#createSystem();
       }
 
     } else {
-      Inventory.#createSystem();
+      InventoryManager.#createSystem();
     }
+
+    // to access static methods
+    // window.InventoryManager = InventoryManager;
   }
 }
 
@@ -1297,3 +1303,9 @@ export class Inventory { // you will not be able to create NEW instances of this
 
 // Notes to self
 // ------------------------------------------------------------------------------------------------------
+
+// in order for this to be save and reloadable, i think the only way is
+// keep a history stack of everything that happened, save and load that, and
+// then run it through each time
+// need to find all mutating methods
+// might be too difficult with all the callbacks, for now, each room resets if left

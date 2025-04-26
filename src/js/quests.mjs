@@ -40,16 +40,6 @@ import { EventSystem } from "./utils.mjs";
  */
 
 const SAVE_KEY = "quests";
-
-function save(quests) {
-  window.saveState?.set(SAVE_KEY, quests);
-}
-
-function load() {
-  // list of completed quests
-  return window.saveState?.get(SAVE_KEY) ?? [];
-}
-
 class QuestSystem {
 
   get elements() {
@@ -115,4 +105,13 @@ class QuestSystem {
     // load save here, do it via the constructor
     window.quests = new QuestSystem(load());
   }
+}
+
+function save(quests) {
+  window.gameStorage?.set(SAVE_KEY, quests);
+}
+
+function load() {
+  // list of completed quests
+  return window.gameStorage?.get(SAVE_KEY) ?? [];
 }

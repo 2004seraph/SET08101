@@ -62,6 +62,20 @@ export class ArrayUtil {
   static equal(a, b) {
     return areSetsEqual(new Set(a), new Set(b));
   }
+
+  static takeWhile(fn, arr) {
+    const [x, ...xs] = arr;
+
+    if (arr.length > 0 && fn(x)) {
+      return [x, ...this.takeWhile(fn, xs)]
+    } else {
+      return [];
+    }
+  };
+
+  static dropUntil(fn, arr) {
+    return arr.slice(arr.findIndex(e => !fn(e)));
+  };
 }
 
 export function areSetsEqual (a, b) {

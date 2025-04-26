@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Point and click</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="room.css">
 </head>
 <body>
   <div id="app">
@@ -121,16 +121,14 @@
   <!-- non-persistent -->
   <script src="../../js/point-and-click.mjs"  type="module"></script>
   <!-- persistent -->
-  <script src="../../js/saveState.mjs"        type="module"></script>
+  <script src="../../js/storage.mjs"          type="module"></script>
   <script src="../../js/action-log.mjs"       type="module"></script>
   <script src="../../js/quests.mjs"           type="module"></script>
-  <script src="../../js/progress.mjs"         type="module"></script>
+  <script src="../../js/game-state.mjs"       type="module"></script>
 
   <!-- Logic specific to this room -->
 
   <!-- a list of the callback functions i use in this HTML file -->
-  <script src="callbacks.js"></script>
-  <!-- event listeners and config -->
-  <script src="main.js" defer></script>
+  <script src="room.js" defer></script>
 </body>
 </html>

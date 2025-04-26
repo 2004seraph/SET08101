@@ -90,7 +90,7 @@ document.querySelectorAll(".gimbalLook").forEach(v => {
   });
 });
 
-function main() {
+export function panCameraLoop() {
   // scrollDivs.forEach(d => {
   //   if (pan(d) == 0) {
   //     scrollDivs.delete(d);
@@ -98,7 +98,7 @@ function main() {
   // });
   scrollDivs.forEach(d => pan(d));
 
-  requestAnimationFrame(main);
+  requestAnimationFrame(panCameraLoop);
 }
 
-requestAnimationFrame(main);
+requestAnimationFrame(panCameraLoop);
