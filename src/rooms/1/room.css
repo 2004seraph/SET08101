@@ -1,94 +1,96 @@
 @import url("../../css/game.css");
 
-.door {
-  position: absolute;
-}
-
-
 #lockedDoor {
-  height: 130px;
+  position: absolute;
+
+  height: 230px;
+  --s-w: 140px;
+  --o-w: calc(var(--s-w) * 2);
 
   border: 4px solid black;
 }
-
-
 .shut {
-  background-color: brown;
-  width: 80px;
+  background-image: url("assets/door1.png");
+  background-size: 100% 100%;
+  width: var(--s-w);
 }
-
-.shut .doorHandle {
-  position: absolute;
-  background-color: yellow;
-  width: 10px;
-  height: 5px;
-
-  top: 50%;
-  left: calc(100% - 10px);
-}
-
-
 .open {
-  background-color: rgb(65, 24, 24);
-  width: 160px;
+  --right: rgb(61, 34, 33);
+  --left: rgb(26, 10, 19);
+  background: linear-gradient(90deg, var(--left) 0%, var(--left) 50%, var(--right) 51%, var(--right) 100%);
+  width: var(--o-w);
 }
-
 .open::after {
   content: "DUDD";
   color: white;
   position: absolute;
   top: 5px;
   left: 5px;
+  z-index: 10;
 }
 
-.open .doorHandle {
+#exit {
+  width: 80px;
   position: absolute;
-  background-color: black;
-  width: 5px;
-  height: 100%;
-  left: 50%;
-  top: 0%;
 }
-
 
 #switchboard {
-  background-color: blue;
-  width: 400px;
+  background-color: rgb(14, 14, 15);
+  width: 220px;
+  height: 100px;
   position: absolute;
+  border-radius: 10px;
 }
+#switchboard::after {
+  --height: 10%;
 
+  content: '';
+  background-color: rgb(44, 44, 44);
+  width: 40%;
+  height: var(--height);
+  position: absolute;
+  top: calc(-1 * var(--height));
+  left: 10%;
+}
+#switchboard > h2 {
+  color: red;
+  user-select: none;
+  text-align: center;
+}
 #switchboard > div {
   display: flex;
   gap: 10px;
   padding: 10px;
+  width: 100%;
+  height: 100%;
 
-  position: relative;
+  background-image: url("assets/sb.png");
+  background-size: contain;
 }
 
-#switchboard > h2 {
-  color: aliceblue;
-  user-select: none;
+#map {
+  background-color: rgb(64, 66, 68);
 }
 
 .switchboardSlot {
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
 
   box-sizing:border-box;
-  width: 80px;
-  height: 80px;
+  width: 37px;
+  height: 40px;
   position: unset;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  top: 0px;
-  left: -100px;
+  top: 19px;
+  left: 11px;
 }
 
 .switchboardSlot > .item {
   cursor: pointer;
-  width: 80px;
+  width: 55px;
 }
 
 .item {

@@ -30,6 +30,14 @@
         <p style="font-size: 0.6em;">Booting Quest shell...</p>
         <p>===</p>
 
+        <h2>Help</h2>
+        <p style="font-size: 0.7em;">Click items to pick them up.</p>
+        <p style="font-size: 0.7em;">Click anything to get more<br> information about it.</p>
+        <p style="font-size: 0.7em;">(This includes items in your<br> inventory).</p>
+        <br>
+        <p style="font-size: 0.7em;">Drag items in your hotbar<br> together to craft with them.</p>
+        <p style="font-size: 0.7em;">Drag items onto things in the<br> scene to use them.</p>
+
         <h2>Quests</h2>
 
           <!-- define the quests here -->
@@ -53,46 +61,63 @@
           </div>
 
           <!-- build the whole map here -->
-          <div class="crt-screen" id="map">
-            <img class="item switch" src="assets/switch.png" style="top: 280px; left: 500px;"
+          <div class="crt-screen" id="map" style="--map-width: 780px;">
+            <img class="item switch" src="assets/switch.png" style="z-index: 1;top: 105px; left: 150px;"
               data-game-item="switch"
               data-use="Room.useItem(this, withObject)">
 
-            <img class="item" src="assets/screwdriver.png" style="top: 280px; left: 410px;"
+            <img class="item" src="assets/screwdriver.png" style="transform:rotate(-45deg); top: 60px; left: 120px;"
               data-game-item="screwdriver"
               data-crafting-consumable="false"
               data-use="Room.useItem(this, withObject)">
 
-            <img class="item" src="assets/box.png" style="top: 330px; left: 410px;"
+            <img class="item" src="assets/box.png" style="top: 260px; left: 600px;"
               data-game-item="lockbox"
               data-use="Room.useItem(this, withObject)">
 
-            <img class="item switch" src="assets/switch.png" style="top: 260px; left: 695px;"
+            <img class="item switch" src="assets/switch.png" style="top: 180px; left: 305px;"
               data-game-item="switch"
               data-use="Room.useItem(this, withObject)">
 
-            <img class="item switch" src="assets/switch.png" style="top: 265px; left: 695px;"
+            <img class="item switch" src="assets/switch.png" style="top: 185px; left: 305px;"
               data-game-item="switch"
               data-use="Room.useItem(this, withObject)">
 
-            <img class="item switch" src="assets/switch.png" style="top: 260px; left: 690px;"
+            <img class="item switch" src="assets/switch.png" style="top: 180px; left: 300px;"
               data-game-item="switch"
               data-use="Room.useItem(this, withObject)">
+
+            <img height="80px" width="150px" src="assets/shelf.png" style="filter:saturate(1.4);position:absolute; top: 100px; left: 100px;">
+
+            <svg width="100%" height="100%" style="z-index:-1;position:absolute; top: 0px; left: 0px;">
+              <defs>
+                <pattern id="attachedImage" x="0" y="0"  width="200" height="200" patternUnits="userSpaceOnUse" >
+                   <image x="0" y="0" xlink:href="assets/bricks.jpg"/>
+                </pattern>
+              </defs>
+
+              <rect stroke="black" x="100" y="0" width="700" height="290" fill="url(#attachedImage)" />
+
+              <polygon points="0,0 0,380 100,290 100,0" style="fill:rgb(25, 27, 27)" />
+
+              <line x1="100" y1="10" x2="600" y2="10" stroke="lime" />
+              <line x1="100" y1="10" x2="20" y2="80" stroke="lime" />
+              <line x1="20" y1="80" x2="20" y2="150" stroke="lime" />
+            </svg>
 
             <div id="interactions">
-              <div class="door shut" id="lockedDoor" style="top: 250px; left: 700px;"
+              <div class="door shut" id="lockedDoor" style="top: 60px; left: 260px;"
                 data-door="key" data-eats-key="true"
-                data-on-click="window.actionLog.push('a locked wardrobe')"
+                data-on-click="window.actionLog.push('A locked wardrobe')"
                 data-on-open="Room.openRedDoor(this)">
-
-                <div class="doorHandle"></div>
               </div>
 
-              <div id="switchboard" style="top: 0px; left: 400px;">
-                <h2>Switchboard</h2>
+              <img src="assets/exit.png" id="exit" style="cursor:pointer;top: 60px; left: 10px;"
+                onclick="Room.escape()"/>
+
+              <div id="switchboard" style="top: 10px; left: 550px;">
+                <h2>Danger: Live</h2>
                 <div>
-                  <img src="assets/sb.png"
-                    style="width: 220px;position: relative;" />
                   <div class="slot switchboardSlot"
                     data-slot="switchboard"
                     data-callback="return Room.itemIsSwitch(this, withObject)"
@@ -120,7 +145,7 @@
   <!-- Generic reusable logic -->
 
   <!-- completely standalone and isolated -->
-  <script src="../../js/look.mjs"       async type="module"></script>
+  <script src="../../js/look.mjs"             type="module"></script>
   <!-- non-persistent -->
   <script src="../../js/point-and-click.mjs"  type="module"></script>
   <!-- persistent -->

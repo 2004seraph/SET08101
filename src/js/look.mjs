@@ -28,7 +28,7 @@ import { MathUtil } from "./utils.mjs";
 
 // config
 const panArea = 100;
-const acceleration = 4;
+const acceleration = 2.4;
 const inputDelay = 300;
 
 // state
@@ -36,6 +36,12 @@ const scrollDivs = new Set();
 let mousePos = {
   x: 0,
   y: 0
+}
+
+window.scrollLook = {
+  settings: {
+    lockVertical: false
+  }
 }
 
 function pan(element) {
@@ -63,12 +69,17 @@ function pan(element) {
   horizontalPan = horizontalPan * 2;
   horizontalPan = horizontalPan * Math.abs(horizontalPan);
 
-  const bottomAreaStart = rect.height - panArea;
-  let verticalPan =
-    (-1 * MathUtil.lerp(0, 1, MathUtil.clamp(panArea - relativeMousePos[1], 0, panArea) / panArea)) // leftwards
-    + (MathUtil.lerp(0, 1, MathUtil.clamp(relativeMousePos[1] - bottomAreaStart, 0, panArea) / panArea)); // rightwards
-  verticalPan = verticalPan * 2;
-  verticalPan = verticalPan * Math.abs(verticalPan);
+  let verticalPan;
+  if (!window.scrollLook.settings.lockVertical) {
+    const bottomAreaStart = rect.height - panArea;
+    verticalPan =
+      (-1 * MathUtil.lerp(0, 1, MathUtil.clamp(panArea - relativeMousePos[1], 0, panArea) / panArea)) // leftwards
+      + (MathUtil.lerp(0, 1, MathUtil.clamp(relativeMousePos[1] - bottomAreaStart, 0, panArea) / panArea)); // rightwards
+    verticalPan = verticalPan * 2;
+    verticalPan = verticalPan * Math.abs(verticalPan);
+  } else {
+    verticalPan = 0;
+  }
 
   element.scroll({ left: element.scrollLeft + horizontalPan * acceleration, top: element.scrollTop + verticalPan * acceleration });
 

@@ -12,9 +12,9 @@ class Room {
 
     element.classList.remove("shut")
     element.classList.add("open")
-    element.style.left = `${700 - 80}px`
+    // element.style.left = `${700 - 80}px`
 
-    document.querySelectorAll("[data-game-item='switch']").forEach(e => e.style.zIndex = 10)
+    document.querySelectorAll("[data-game-item='switch']").forEach(e => e.style.zIndex = 1)
   }
 
   static itemIsSwitch(slot, item) {
@@ -27,25 +27,38 @@ class Room {
     return true
   }
 
+  static escape() {
+    if (this.#checkCombination()) {
+      alert("You escaped!")
+      window.location.replace("/")
+    } else {
+      window.actionLog.push('Wont budge')
+    }
+  }
+
   static switchConnected(slot, item) {
     // prevent user from removing / swapping items on this slot now
     window.inventory.disableItem(item)
 
-    const ON = e => e.src.includes("assets/switch-on.png")
-
     item.addEventListener("click", (e) => {
-      if (ON(item)) {
+      if (this.#switchOn(item)) {
         item.src = "assets/switch.png"
       } else {
         item.src = "assets/switch-on.png"
       }
-
-      const code = [...document.querySelectorAll(".switch")]
-
-      if (ON(code[0]) && !ON(code[1]) && ON(code[2]) && ON(code[3])) {
-        alert("You're Winner!")
-      }
     });
+  }
+
+  static #switchOn(e) {
+    return e.src.includes("assets/switch-on.png");
+  }
+
+  static #checkCombination() {
+    const code = [...document.querySelectorAll(".switch")]
+
+    const ON = e => this.#switchOn(e)
+
+    return ON(code[0]) && !ON(code[1]) && ON(code[2]) && ON(code[3])
   }
 
   // Generics
@@ -91,10 +104,12 @@ class Room {
     // and then one from callbacks.
 
     // setting the horizontal scroll position on page load (game camera view)
-    document.addEventListener('DOMContentLoaded', function() {
-      const element = document.getElementById("scene-viewport");
-      element.scrollLeft = 350;
-    });
+    // document.addEventListener('DOMContentLoaded', function() {
+    //   const element = document.getElementById("scene-viewport");
+    //   element.scrollLeft = 350;
+    // });
+
+    window.scrollLook.settings.lockVertical = true;
 
     // window.onload = function() { // it's either this or defer-ing this script
     // and any script that uses the global objects
