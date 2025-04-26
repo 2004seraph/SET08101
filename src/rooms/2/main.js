@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ) {
 
       if (!window.quests.isComplete("pickup")) {
-        window.actionLog.push('i got a lotta stuff');
+        window.actionLog.push('Seems i got all the dials');
         window.quests.complete("pickup");
       }
     }
