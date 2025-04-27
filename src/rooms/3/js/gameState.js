@@ -75,7 +75,7 @@ function gameWon(m, s) {
     gameComplete.innerHTML = `
         <h1>You escaped!</h1>
         <p>Good Job!</p>
-        <p>This room took you ${m} minute(s) and ${s} second(s)!</p>
+        <p>Escaping the Antique Store's Basement took you ${m} minute(s) and ${s} second(s)!</p>
     `;
 
     wrapper.appendChild(gameComplete);
