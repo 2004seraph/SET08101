@@ -11,16 +11,18 @@
 
 <body>
   <div id="app">
-    <nav>
-      <a>&lt;&lt;</a>
-      <a href="../../">Home</a>
-      <a>&gt;&gt;</a>
-    </nav>
+    
+      <nav>
+        <a href="../1/"> &lt;&lt; </a>
+        <a href="../../">Home</a>
+        <a href="../3/"> &gt;&gt; </a>
+      </nav>
+    
 
     <div class="crt-screen action-log" id="log">
       <p>Fix the signal tower!</p>
     </div>
-
+<!--Screen gets shown here -->
     <main>
       <div class="crt-screen" id="quests">
         <hr>
@@ -35,15 +37,24 @@
           <h3 data-quest="pickup" data-on-complete="console.log('Collected all dials')" title="Collector">Collect every
             signal dial</h3>
           <h3 data-quest="alignSignal" title="Frequency Found">Align the correct signal</h3>
+          <h3 data-quest="story" title="Story">Welcome adventurer! In this room you will have to pick up different dials. <br>
+            Pick them up to add them to your inventory. And then drag them to use them. <br>
+            There seems to be a broken signal tower ....<br>
+            I think there must be a signal console somewhere in this room. <br>
+            Given the dials and the console I think you can fix the signal tower. <br>
+            But they will probably have to be rotated the right way... <br>
+            (S°)eems you will have to figur(E°) out ho(W°) to do that....   <br>
+            Maybe pay good attention to some letters in this text? <br> `</h3>
+          
         </div>
         <hr>
       </div>
-
+<!--Creates the actual playing area and places the items on the map -->
       <div id="playArea">
         <div class="gimbalLook" id="scene-viewport">
 
           <div id="crafting">
-            <!-- No crafting needed in this room -->
+            
           </div>
 
           <div class="crt-screen" id="map">
@@ -55,7 +66,7 @@
 
             <img class="item" src="assets/dial3.png" style="top:220px;left:580px;" data-game-item="signalDial"
               data-use="Room.useItem(this, withObject)" data-on-pickup="window.actionLog.push('Picked up Dial 3')" />
-
+<!--How items interact with each other -->
             <div id="interactions">
               <div class="signalConsole" id="signalConsole" style="top:250px;left:400px;" data-slot="signalConsole"
                 data-callback="return Room.onlyDials(this, withObject)" data-on-click="Room.inspectConsole()"
@@ -69,9 +80,9 @@
           </div>
 
         </div>
-        <!--Move the signal console and the signal tower locked into the map class to show it properly on the screen-->
+        
 
-
+<!--Creates and dupes the inventory slots-->
         <div class="crt-screen" id="hotbar">
           <div class="inventory-slot" data-slot data-duplicate-slot="5"></div>
         </div>
@@ -80,15 +91,11 @@
   </div>
 
   <script src="../../js/look.mjs" async type="module"></script>
-  <!-- non-persistent -->
   <script src="../../js/point-and-click.mjs" type="module"></script>
-  <!-- persistent -->
   <script src="../../js/saveState.mjs" type="module"></script>
   <script src="../../js/action-log.mjs" type="module"></script>
   <script src="../../js/quests.mjs" type="module"></script>
   <script src="../../js/progress.mjs" type="module"></script>
-
-  <!-- Room-specific logic -->
   <script src="room.js" defer></script>
   <script src="main.js" defer></script>
 </body>
