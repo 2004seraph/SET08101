@@ -28,6 +28,7 @@ class Room {
 
     item.classList.add("rotatable");
     item.dataset.rotation = "0";
+    slot.appendChild(item);
 
     item.addEventListener("click", () => {
       let rotation = parseInt(item.dataset.rotation);
@@ -41,7 +42,7 @@ class Room {
   }
 
   static checkAlignment() {
-    const dials = [...document.querySelectorAll("[data-slot='signalConsole'] .item")];
+    const dials = [...document.querySelectorAll(".signalConsole .item")];
     if (dials.length < 3) return;
 
     const correctAngles = [180, 90, 270]; // required alignment
@@ -55,12 +56,13 @@ class Room {
 
       const tower = document.getElementById("tower");
       if (tower) tower.classList.remove("locked");
+      Room.unlockTower();
     }
   }
 
   static unlockTower() {
     if (!document.getElementById("tower").classList.contains("locked")) {
-      window.actionLog.push("Congrats! You repaired tthe tower!");
+      window.actionLog.push("Congrats! You repaired the tower!");
     } else {
       window.actionLog.push("Seems the tower is still offline, maybe the dials are missaligned?");
     }

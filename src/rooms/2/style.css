@@ -4,7 +4,7 @@
   width: 96px;
   height: 96px;
   background: url("assets/signal_console.png") center/contain no-repeat;
-  position: absolute;
+  position: static;
   image-rendering: pixelated;
 }
 
@@ -25,8 +25,9 @@
 .signalTower:not(.locked) {
   filter: none;
   opacity: 1;
-  background-image: url("assets/signal_tower_on.png");
+  background-image: url("assets/signal_tower.png");
 }
+
 .signalTower.locked {
   filter: grayscale(1);
   opacity: 0.7;
@@ -43,18 +44,3 @@
 .rotatable {
   transition: transform 0.2s ease;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
