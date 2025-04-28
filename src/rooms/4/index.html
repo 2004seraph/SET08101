@@ -1,0 +1,97 @@
+<!--
+Project: Web Technologies Group Project
+Description: A point-and-click style escape room game.
+Author: Ciaran Fox
+Notes: The minigame system did not work, some of the code elements were removed when tinkering.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <div id="button-container" class="button-container">
+        <a href="../3/index.html" class="nav-link">Previous Room</a>
+        <a href="../../index.html" class="nav-link">Home</a>
+    </div>
+
+</head>
+<body>
+    <!-- Assigning the asset paths -->
+    <div>
+        <div id="game">
+            <img src="images/room.jpg" alt="Room background" id="background">
+            <img src="images/sand.png" alt="sand" id="sand" class="clickable-item">
+            <img id="bucket1" src="images/bucket1.png" alt="bucket1" class="clickable-item"/>
+            <img id="lockbox1" src="images/lock box1.png" alt="lockbox1" class="clickable-item">
+            <img id="lockbox2" src="images/lock box2.png" alt="lockbox2" class="clickable-item">
+            <img id="lockbox3" src="images/lock box3.png" alt="lockbox3" class="clickable-item">
+            <img id="door" src="images/door.png" alt="door" class="clickable-item">
+            <img id="cabinet" src="images/cabinet.png" alt="cabinet">
+            <div id="text-box">
+                <p id="text-content">
+                    <b>Ciaran's Escape Room</b>
+                    <br>
+                    <br>
+                    Welcome! You are trapped in this room. Find a way to escape.
+                    <br>
+                    <br>
+                    Maybe there is a key in one of those locked boxes... 
+                    <br>
+                    <br>
+                    Fill that cylinder with sand to unlock them.
+                </p>
+            </div>
+        </div>
+
+        <div id="cylinder-container">
+            <img id="cylinder" src="images/cylinder.png" alt="Cylinder">
+        </div>
+
+        <!-- Inventory container with 5 items slots, identified by a data-index for tracking items. -->
+        <div id="inventory">
+            <div id="inventory-items"></div>
+            <div class="slot" data-index="0"></div>
+            <div class="slot" data-index="1"></div>
+            <div class="slot" data-index="2"></div>
+            <div class="slot" data-index="3"></div>
+            <div class="slot" data-index="4"></div>
+        </div>
+
+        <!-- Minigame overlay for the not working maths puzzle. -->
+        <div id="minigame-overlay" class="minigame-overlay hidden" style="display: none;">
+
+            <div id="minigame-window" class="minigame-window">
+                <button id="submit-minigame">Submit</button>
+                <h2>Place the Buckets in the Correct Order!</h2>
+                <div class="minigame-buckets">
+                    <div class="minigame-bucket" id="bucket1" draggable="true">Small</div>
+                    <div class="minigame-bucket" id="bucket2" draggable="true">Medium</div>
+                    <div class="minigame-bucket" id="bucket3" draggable="true">Large</div>
+                </div>
+                <div class="minigame-slots">
+                    <div class="minigame-slot" id="slot1"></div>
+                    <div class="minigame-slot" id="slot2"></div>
+                    <div class="minigame-slot" id="slot3"></div>
+                </div>
+                <button id="close-minigame" class="hidden">Close</button>
+            </div>
+       
+
+    </div>
+
+    <script src="game.js"></script>
+
+</body>
+<footer>
+
+    <!-- Acknowledgement that googles AI image generator was used for the assets. -->
+<div id="footer" class="footer">
+    <p>Assets Created Using ImageFX.</p>
+</div>
+</footer>
+
+</html>

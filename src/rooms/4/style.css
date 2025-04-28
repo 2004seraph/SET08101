@@ -1,0 +1,270 @@
+/* General styling for the page and background colour of the non game area. */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: rgb(51, 26, 51);
+}
+
+/* positioning the navigation buttons. */
+.button-container {
+  position: absolute;
+  top: 0px; 
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px; 
+}
+
+/* Styling the navigation buttons. */
+.nav-link {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* Making the button colour darker when hovered over */
+.nav-link:hover {
+  background-color: #0056b3; 
+}
+
+/* The background image for the room */
+#game-area {
+    position: relative;
+    height: 400px;
+    width: 600px;
+    top: 200px;
+    background-color: #f0f0f0;
+    background-image: url("../images/background.png");
+    background-position: center;
+}
+  
+/* Positioning the room in the middle of the screen. */
+#background {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+  
+/* Text box to introduce the room and give a hint. */
+#text-box {
+  position: absolute;
+  top: 120px;
+  left: 270px;
+  right: 20px;
+  width: 300px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Positioning the bucket1 asset on the page. */
+#bucket1 {
+  position: absolute;
+  left: 800px;
+  top: 500px;
+  cursor: pointer;
+}
+  
+/* Positioning the cylinder asset on the page. */
+#cylinder {
+  position: absolute;
+  width: 300px;
+  left: 1300px;
+  top: 190px;
+  z-index: 1;
+  cursor: pointer;
+}
+  
+/* Positioning the sand pile asset on the page. */
+#sand {
+  position:absolute;
+  width: 300px;
+  left: 350px;
+  top: 520px;
+  cursor: pointer;
+}
+
+/* Positioning the door asset on the page. */
+#door {
+  position: absolute;
+  left: 1100px;
+  top: 360px;
+  cursor: pointer;
+}
+
+/* Positioning the cabinet asset on the page. */
+#cabinet {
+  position: absolute;
+  left: 580px;
+  top: 320px;
+  width: 300px;
+  cursor: pointer;
+}
+
+/* Positioning the lockboxe assets on the page. */
+#lockbox1 {
+  position: absolute;
+  left: 1300px;
+  top: 530px;
+  z-index: 2;
+  cursor: pointer;
+}
+
+#lockbox2 {
+  position: absolute;
+  left: 1300px;
+  top: 390px;
+  z-index: 2;
+  cursor: pointer;
+}
+
+#lockbox3 {
+  position: absolute;
+  left: 1300px;
+  top: 210px;
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* Positioning and styling the inventory. */
+#inventory {
+  position: fixed;
+  left: 780px;
+  display: flex;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 12px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+}
+  
+/* Positioning and styling the inventory slots. */
+.slot {
+  width: 60px;
+  height: 60px;
+  background: #ccc;
+  border: 2px solid #999;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-family: sans-serif;
+  color: black;
+  transition: border-color 0.2s;
+}
+
+/* Styling the outline of the inventory slot for when it's selected. */
+.slot.selected {
+  border-color: gold;
+}
+ 
+/* Positioning the assets when they are in the inventory. */
+#inventory-items img {
+  width: 50px;
+  height: 50px;
+  background: #444;
+  border: 2px solid #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Styling the clickable assets to change the mouse cursor when hovered. */
+.clickable-item {
+  width: 100px;
+  cursor: pointer;
+}
+
+/* Non working final mini game styling and positioning of the window. 
+Some of these lines are related to code that no longer exists.
+
+#minigame-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+#minigame-window {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 400px;
+  text-align: center;
+}
+
+.minigame-buckets, .minigame-slots {
+  margin: 15px 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.minigame-slot {
+  width: 60px;
+  height: 60px;
+  border: 2px dashed #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.minigame-bucket {
+  width: 60px;
+  height: 60px;
+  background-color: #c2b280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+
+button {
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+*/
+
+
+/* Styling and positioning the footer which declares the use of AI for asset generation. */
+.footer {
+  position: fixed;
+  bottom: 10px;  
+  left: 50%;
+  transform: translateX(-50%);  
+  font-size: 16px;
+  color: #fff;  /* White text color */
+  background-color: rgba(0, 0, 0, 0.6);  
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 1000;  
+  margin: 0;  
+  text-align: center;  
+}
+
